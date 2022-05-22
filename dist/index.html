@@ -33,20 +33,15 @@
         <option value="default"></option>
       </select>
       <text class="user-info" id="userInfo"></text>
-
     </div>
   </section>
-
   <section class="bottom-section">
     <div class="icons-container">
-      <!-- <p class="icons">Water</p> -->
       <img class="water-img" id="water-button" src="./images/water.png">
-      <!-- <p class="icons">Sleep</p> -->
       <img class="sleep-img" id="sleep-button" src="./images/turing-logo.png">
-      <!-- <p class="icons">Activity</p> -->
       <img class="activity-img" src="./images/turing-logo.png">
     </div>
-    
+
     <div class="bottom-container">
       <div class="category-container" id="waterContainer">
         <div class="title-container">
@@ -58,17 +53,16 @@
           </div>
           <div class="chart-box">
             <article class="category-chart">
-              <canvas id="myChart" width="400" height="400"></canvas>
+              <canvas class="water-chart" id="waterChart"></canvas>
             </article>
           </div>
           <div class="average-box">
             <article class="daily-goal" id="dailyGoal">
-              <div>Daily Ounces</div>
+              <div>Display Your Water Intake History</div>
               <input type="text" name="date-picker-water" placeholder="Select Date" id="date-picker-water">
               <article id="user-ounce-for-day-result"></article>
-              <!-- <select class="date-picker"></select> -->
             </article>
-            <article class="average-goal" id="averageGoalWater">Average Ounces</article>
+            <article class="average-goal" id="averageGoalWater"></article>
           </div>
         </div>
       </div>
@@ -82,16 +76,16 @@
           </div>
           <div class="chart-box">
             <article class="category-chart">
-                <canvas id="sleep-chart" width="600" height="400"></canvas>
+                <canvas class="sleep-chart" id="sleepChart" width="600" height="400"></canvas>
             </article>
           </div>
           <div class="average-box">
             <article class="daily-goal" id="dailyGoal">
-              <div>Sleep Quality</div>
+              <div>Display Your Sleep History</div>
               <input type="text" name="date-picker-sleep" placeholder="Select Date" id="date-picker-sleep">
               <article id="user-hours-for-day-result"></article>
             </article>
-            <article class="average-goal" id="averageGoalSleep">Average Sleep</article>
+            <article class="average-goal" id="averageGoalSleep"></article>
           </div>
         </div>
       </div>

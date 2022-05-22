@@ -36,7 +36,7 @@ class HydrationRepository {
         const week = filteredFluidById.slice((index - 6) , (index + 1))
           .map(data => {
             return data.ounces
-          })
+        })
         return week;
     }
 
@@ -46,11 +46,11 @@ class HydrationRepository {
         });
         const index = dateWaterIntake.findIndex(data => {
             return data.date === date
-          })
+        })
         const weekDate = dateWaterIntake.slice((index - 6) , (index + 1))
           .map(data => {
             return data.date
-          })
+        })
         return weekDate;
     }
 
@@ -60,14 +60,13 @@ class HydrationRepository {
         }
         var xValues = date;
         var yValues = ounces;
-        var barColors = ["red", "green", "blue", "orange","brown", "black", "magenta"];
-       var chart = new Chart("myChart", {
+        var barColors = ["steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue",];
+        new Chart("waterChart", {
             type: "bar",
             data: {
                 labels: xValues,
                 datasets: [{
                     fill: false,
-                    borderColor: 'rgba(255, 0, 0, 0.7)',
                     backgroundColor: barColors,
                     data: yValues
                 }]
