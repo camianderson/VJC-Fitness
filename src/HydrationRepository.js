@@ -55,6 +55,9 @@ class HydrationRepository {
     }
 
     displayWeeklyWaterChart(date, ounces) {
+        if(chart != null){
+            chart.destroy()
+        }
         var xValues = date;
         var yValues = ounces;
         var barColors = ["steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue",];
