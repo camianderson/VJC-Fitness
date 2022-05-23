@@ -31,6 +31,10 @@ canvas {
   height: 450px
 }
 
+input {
+  text-align: center;
+}
+
 img {
   margin: 0;
   padding: 0;
@@ -226,6 +230,11 @@ img {
   background-color: rgba(171, 174, 203, 0.6);
   width: 90%;
   height: 48%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
 }
 
 .steps-box,

@@ -107,9 +107,10 @@ function displayUserInfo(user, userRepository, hydrationRepository) {
     userInfo.innerHTML =
         `Address: ${user.address}<br>
         E-mail: ${user.email}<br>
-        \nStride Length: ${user.strideLength}<br>
+        <br>
+        Stride Length: ${user.strideLength}<br>
         Daily Step Goal: ${user.dailyStepGoal}<br>
-        \nAverage Users Step Goal: ${userRepository.averageStepGoal()}`
+        Average Users Step Goal: ${userRepository.averageStepGoal()}`
 };
 
 function waterDataDisplay(userId, formattedDate, hydrationRepository) {
@@ -118,7 +119,7 @@ function waterDataDisplay(userId, formattedDate, hydrationRepository) {
     const userOuncesForDate = hydrationRepository.displayDailyAvgOunces(userId, formattedDate)
     const ouncesIntake = hydrationRepository.displayWeekWaterIntake(userId, formattedDate)
     const dateIntake = hydrationRepository.displayWaterByDate(userId, formattedDate)
-    dailyResultWater.innerText = `On This Date: ${userOuncesForDate}oz`
+    dailyResultWater.innerText = `\nOn This Date: \n${userOuncesForDate}oz`
     hydrationRepository.displayWeeklyWaterChart(dateIntake, ouncesIntake)
     avgDisplayBoxWater.innerText = `All-Time Daily Water Intake Average: ${hydrationRepository.displayAllTimeAvgOunces(userId)}oz`
 }
@@ -135,15 +136,16 @@ function sleepDataDisplay(userId1, formattedDate1, sleepRepository) {
         const Shours = sleepRepository.displayWeekSleepHours(userId1, formattedDate1)
         const SQhours = sleepRepository.displayWeekSleepQualityHours(userId1, formattedDate1)
         sleepRepository.displayWeeklySleepChart(dateSleep, Shours, SQhours)
-        avgDisplayBoxSleep.innerText = `Average Sleep Qualty of All Time: ${sleepRepository.displayUserSleepQualityAllTime(userId1)}
-                                        Average Hours of Sleep of All Time: ${sleepRepository.displayUserHoursSleepAllTime(userId1)}`
+        avgDisplayBoxSleep.innerText = `Average Sleep Qualty of All Time: \n${sleepRepository.displayUserSleepQualityAllTime(userId1)}
+                                        \nAverage Hours of Sleep of All Time: \n${sleepRepository.displayUserHoursSleepAllTime(userId1)}`
     }
     catch{}
 }
 
 function clearData(){
     dailyResultWater.innerText = '';
-    avgDisplayBoxWater.innerText = 'Average Ounces';
+    avgDisplayBoxWater.innerText = `All-Time Daily Water Intake Average:`;
     dailyResultSleep.innerText = ''; 
-    avgDisplayBoxSleep.innerText = 'Average Sleep';
+    avgDisplayBoxSleep.innerText = `Average Sleep Qualty of All Time:
+                                    \nAverage Hours of Sleep of All Time:`;
 }

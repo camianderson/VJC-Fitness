@@ -136,7 +136,7 @@ class SleepRepository{
             }
         }
 
-        var chart = new Chart("sleep-chart", config) 
+        var chart = new Chart("sleepChart", config) 
     }
 };
     
