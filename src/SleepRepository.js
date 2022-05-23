@@ -124,7 +124,7 @@ class SleepRepository{
             type: 'bar',
             data: data,
             options: {
-                SQhours, 
+                SQhours,
                 Shours,
                 legend: {
                     display: false
@@ -136,10 +136,10 @@ class SleepRepository{
             }
         }
 
-        var chart = new Chart("sleepChart", config) 
+        var chart = new Chart("sleepChart", config)
     }
 };
-    
+
 
 
 

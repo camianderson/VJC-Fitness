@@ -3,11 +3,14 @@ import UserRepository from '../src/UserRepository';
 import  userData  from '../src/data/sampleData-user';
 
 describe('User Repository', () => {
+  let user1;
+  beforeEach(() => {
+    user1 = new UserRepository(userData);
+  })
   it('should be a function', function () {
     expect(UserRepository).to.be.a('function');
   });
   it('should be able to get user data by id', function(){
-    const user1 = new UserRepository(userData)
     expect(user1.getUser(2)).to.deep.equal({
       "id": 2,
       "name": "Jarvis Considine",
@@ -24,7 +27,6 @@ describe('User Repository', () => {
     });
   });
   it('should be able to return average step goal for all users', function(){
-    const user = new UserRepository(userData)
-    expect(user.averageStepGoal(userData)).to.equal(6667)
+    expect(user1.averageStepGoal(userData)).to.equal(6667)
   })
 });

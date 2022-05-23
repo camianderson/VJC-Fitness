@@ -5,8 +5,6 @@ class UserRepository {
     this.users = data.map((userObj) => { return new User(userObj) });
   }
 
-  // we should create a getAllUsers method that will return this.users array so we have access to this array
-
     getUser(id){
         const data = this.users.find((obj) => {
             if(obj.id === id){
