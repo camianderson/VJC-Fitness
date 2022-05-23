@@ -61,7 +61,7 @@ class HydrationRepository {
         var xValues = date;
         var yValues = ounces;
         var barColors = ["steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue",];
-        new Chart("waterChart", {
+        var chart = new Chart("waterChart", {
             type: "bar",
             data: {
                 labels: xValues,
