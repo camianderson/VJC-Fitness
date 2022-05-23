@@ -1,6 +1,10 @@
 import './css/styles.css';
 import './images/water.png';
-import './images/turing-logo.png';
+import './images/sleep.png';
+import './images/activity.png';
+import './images/profile-image.png';
+import './images/water-glass.png';
+import './images/sleeping.png';
 import UserRepository from './UserRepository';
 import HydrationRepository from './HydrationRepository';
 import SleepRepository from './SleepRepository';
@@ -23,15 +27,18 @@ var avgDisplayBoxWater = document.querySelector('#averageGoalWater');
 var avgDisplayBoxSleep = document.querySelector('#averageGoalSleep');
 var waterButton = document.querySelector('#water-button');
 var sleepButton = document.querySelector('#sleep-button');
+var activityButton = document.querySelector('#activity-button');
 var dailyResultWater = document.getElementById('user-ounce-for-day-result');
 var dailyResultSleep = document.getElementById('user-hours-for-day-result');
 var waterContainer = document.querySelector('#waterContainer');
 var sleepContainer = document.querySelector('#sleepContainer');
 
+
 // ****** event listeners ******
 window.addEventListener('load', loadData);
 waterButton.addEventListener('click', waterDataDisplay);
 sleepButton.addEventListener('click', sleepDataDisplay);
+activityButton.addEventListener('click', activityDataDisplay);
 
 
 function loadData () {
@@ -142,10 +149,14 @@ function sleepDataDisplay(userId1, formattedDate1, sleepRepository) {
     catch{}
 }
 
+function activityDataDisplay() {
+  window.alert('Activity Data Coming Soon!')
+}
+
 function clearData(){
     dailyResultWater.innerText = '';
     avgDisplayBoxWater.innerText = `All-Time Daily Water Intake Average:`;
-    dailyResultSleep.innerText = ''; 
+    dailyResultSleep.innerText = '';
     avgDisplayBoxSleep.innerText = `Average Sleep Qualty of All Time:
                                     \nAverage Hours of Sleep of All Time:`;
 }
