@@ -17,14 +17,15 @@
 
 * Once a user is selected, they are welcomed to our page and can see their user info displayed below the dropdown menu.
 
-[User Dropdown Info Video Clip Will Go Here<<<<<>>>>>](<<<<<>>>>)
+https://user-images.githubusercontent.com/98445902/169905275-119c2870-5421-4a1c-8084-00005dc67496.mov
+
 
 * While on this user, select a date from the calendar and the following information will be displayed:
     * The users water consumption for that date!
     * The users all-time daily average for how much water they consume per day!
     * A fancy-shmancy chart that displays the users water intake by day for the previous week! Wow!!
 
-[User Water Info Video Clip Will Go Here<<<<<>>>>>](<<<<<>>>>)
+https://user-images.githubusercontent.com/98445902/169905451-e6f2a7ac-2ad1-4b5a-a7b0-a1a75c9befab.mov
 
 * If you'd like to see another users **Hydration** info, just select another user from the dropdown menu! The new users info will be displayed under the dropdown and the previous users info will dissapear!
 
@@ -35,7 +36,7 @@
     * The users all-time daily averages of their hours of sleep, as well as their quality of sleep!
     * Also, another wonderful chart that displays the users hours of sleep, and quality of sleep (side-by-side) for the past week! Nice!
 
-[User Sleep Info Video Clip Will Go Here<<<<<>>>>>](<<<<<>>>>)
+https://user-images.githubusercontent.com/98445902/169905906-72741416-3382-4d84-8a82-f077bb185c59.mov
 
 * You can move back and forth from the **Water** and **Sleep** information by simply clicking on the images on the bottom-left of the page!
 
@@ -144,7 +145,7 @@ Please click the dropdowns below to dive into the details of how we accomplished
 </details><br>
 
 ### Challenges: <a name="challenges"></a>
-This was our first group project of Mod 2 at [Turing](https://turing.edu/) within the [Front-End Program](https://frontend.turing.edu/), and we were tasked to implement new and unfamiliar methods and practices within, such as API fetches, using the Promise.all(), implementing charts, applying a datepicker to show a users info, etc... We all put our heads together to come up with solutions to the challenges we faced as a team, and, together, we conquered.
+This was our first group project of Mod 2 at [Turing](https://turing.edu/) within the [Front-End Program](https://frontend.turing.edu/), and we were tasked to implement new and unfamiliar methods and practices within, such as API fetches, using the Promise.all(), implementing charts, applying a datepicker to show a users stats, etc... We all put our heads together to come up with solutions to the challenges we faced as a team, and, together, we conquered.
 
 <br>
 
