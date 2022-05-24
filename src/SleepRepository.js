@@ -101,7 +101,7 @@ class SleepRepository{
         return weekDate;
     }
 
-    displayWeeklySleepChart(date, Shours, SQhours) {
+    displayWeeklySleepChart(chart, date, sHours, sqHours) {
         if(chart != null){
             chart.destroy()
         }
@@ -112,20 +112,20 @@ class SleepRepository{
             datasets: [{
                 label: 'Sleep Hours',
                 backgroundColor: barColors,
-                data: Shours
+                data: sHours
             },
             {
                 label: 'Sleep Quality',
                 backgroundColor: barColors2,
-                data: SQhours
+                data: sqHours
             }]
         }
         const config = {
             type: 'bar',
             data: data,
             options: {
-                SQhours,
-                Shours,
+                sqHours,
+                sHours,
                 legend: {
                     display: false
                 },
@@ -137,7 +137,34 @@ class SleepRepository{
         }
 
         var chart = new Chart("sleepChart", config)
+        // chart.update()
     }
+
+    // displayWeeklySleepChart(chart, date, sHours, sqHours) {
+    // var barColors = "steelblue";
+    // var barColors2 = 'cadetblue';
+    // chart.data.labels = date;
+    // chart.data.datasets = [{
+    //             label: 'Sleep Hours',
+    //             backgroundColor: barColors,
+    //             data: sHours
+    //         },
+    //         {
+    //             label: 'Sleep Quality',
+    //             backgroundColor: barColors2,
+    //             data: sqHours
+    //         }]
+    // chart.options = {
+    //     legend: {
+    //         display: false
+    //     },
+    //     title: {
+    //         display: true,
+    //         text: 'Sleep Hours & Sleep Quality Per Day'
+    //     }
+    // }
+    // chart.update()
+    // }
 };
 
 
