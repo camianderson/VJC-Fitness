@@ -17,7 +17,6 @@ class SleepRepository{
         return parseFloat(number)
     }
 
-
     displayUserSleepQualityAllTime(id) {
         const userSleep = this.users.filter((user) => {
             return user.id === id;
@@ -101,7 +100,7 @@ class SleepRepository{
         return weekDate;
     }
 
-    displayWeeklySleepChart(date, Shours, SQhours) {
+    displayWeeklySleepChart(chart, date, sHours, sqHours) {
         if(chart != null){
             chart.destroy()
         }
@@ -112,20 +111,20 @@ class SleepRepository{
             datasets: [{
                 label: 'Sleep Hours',
                 backgroundColor: barColors,
-                data: Shours
+                data: sHours
             },
             {
                 label: 'Sleep Quality',
                 backgroundColor: barColors2,
-                data: SQhours
+                data: sqHours
             }]
         }
         const config = {
             type: 'bar',
             data: data,
             options: {
-                SQhours,
-                Shours,
+                sqHours,
+                sHours,
                 legend: {
                     display: false
                 },

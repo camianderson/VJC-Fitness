@@ -54,34 +54,25 @@ class HydrationRepository {
         return weekDate;
     }
 
-    displayWeeklyWaterChart(date, ounces) {
-        if(chart != null){
-            chart.destroy()
-        }
-        var xValues = date;
-        var yValues = ounces;
-        var barColors = ["steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue",];
-        var chart = new Chart("waterChart", {
-            type: "bar",
-            data: {
-                labels: xValues,
-                datasets: [{
-                    fill: false,
-                    backgroundColor: barColors,
-                    data: yValues
-                }]
-            },
-            options: {
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: true,
-                    text: 'Ounces Consumed Per Date'
-                }
-            }
-        });
-    }
+      displayWeeklyWaterChart(chart, date, ounces) {
+      var barColors = ["steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue",];
+      chart.data.labels = date;
+      chart.data.datasets = [{
+          label: "Ounces Consumed Per Date",
+          fill: false,
+          backgroundColor: barColors,
+          data: ounces
+      }]
+      chart.options = {
+          legend: {
+              display: false
+          },
+          title: {
+              display: true
+          }
+      }
+      chart.update()
+      }
 }
 
 export default HydrationRepository;
