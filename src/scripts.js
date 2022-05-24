@@ -21,7 +21,6 @@ var userSleepData;
 var userRepository;
 var hydrationRepository;
 var sleepRepository;
-
 var waterChart = new Chart("waterChart", {type: "bar"})
 var sleepChart = new Chart("sleepChart", {type: "bar"})
 
@@ -151,7 +150,7 @@ function sleepDataDisplay(userId1, formattedDate1, sleepRepository) {
         avgDisplayBoxSleep.innerText = `Average Sleep Qualty of All Time: \n${sleepRepository.displayUserSleepQualityAllTime(userId1)}
                                         \nAverage Hours of Sleep of All Time: \n${sleepRepository.displayUserHoursSleepAllTime(userId1)}`
     }
-    catch{console.log('inside catch')}
+    catch{}
 }
 
 function activityDataDisplay() {
