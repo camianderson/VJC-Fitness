@@ -3,15 +3,26 @@
 ## An activity tracker that tracks and displays a users Hydration & Sleep habits!
 
 ### Table of contents
-1. [How To Use](#setup)
-2. [Under The Hood](#under)
-3. [Challenges](#challenges)
-4. [Reflections](#reflections)
-5. [Future Iterations](#future)
-6. [Technologies Used](#tech)
-7. [Contributors](#contributors)
+* [Setting Up](#setup)
+* [How To Use](#how)
+* [Under The Hood](#under)
+* [Challenges](#challenges)
+* [Reflections](#reflections)
+* [Future Iterations](#future)
+* [Technologies Used](#tech)
+* [Contributors](#contributors)
 
-### How To Use: <a name="setup"></a>
+### Setting Up: <a name="setup"></a>
+
+* On the top right corner of this page, click the **Fork** button to fork this repo.
+* Clone down the forked repo by clicking the green **Code** button, and then copying the link under **SSH**.
+* In your terminal, type in `git clone` and then paste the link.
+* Once you have cloned the repo, change into the directory and install the project dependencies, by running `npm install`.
+* Run `npm start` in the terminal, and copy the URL link (`http://localhost:8080/`) to see the HTML page 
+* To stop running the server, use Control + C in the terminal. (Closing the terminal without stopping the server first could allow the server to continue to run in the background and cause problems.)
+* And now you're ready to start!
+
+### How To Use: <a name="how"></a>
 
 * Select the user you would like to display from the dropdown menu at the top right of the page!
 
@@ -167,6 +178,8 @@ Being on the other end of this project, the realization of how many hours that w
 JavaScript<br>
 HTML<br>
 CSS<br>
+Fetch API<br>
+Webpack<br>
 Mocha<br>
 Chai<br>
 
