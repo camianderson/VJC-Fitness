@@ -8,6 +8,7 @@ import './images/sleeping.png';
 import UserRepository from './UserRepository';
 import HydrationRepository from './HydrationRepository';
 import SleepRepository from './SleepRepository';
+import {displayWeeklySleepChart, displayWeeklyWaterChart} from './Charts.js';
 import {userDataList, userHydrationList, userSleepList} from './apiCalls';
 import datepicker from 'js-datepicker';
 import dateFormat from 'dateformat'
@@ -131,7 +132,7 @@ function waterDataDisplay(userId, formattedDate, hydrationRepository) {
     const ouncesIntake = hydrationRepository.displayWeekWaterIntake(userId, formattedDate)
     const dateIntake = hydrationRepository.displayWaterByDate(userId, formattedDate)
     dailyResultWater.innerText = `\nOn This Date: \n${userOuncesForDate}oz`
-    hydrationRepository.displayWeeklyWaterChart(waterChart, dateIntake, ouncesIntake)
+    displayWeeklyWaterChart(waterChart, dateIntake, ouncesIntake)
     avgDisplayBoxWater.innerText = `All-Time Daily Water Intake Average: ${hydrationRepository.displayAllTimeAvgOunces(userId)}oz`
 }
 
@@ -146,7 +147,7 @@ function sleepDataDisplay(userId1, formattedDate1, sleepRepository) {
         const dateSleep = sleepRepository.displaySleepWeek(userId1, formattedDate1)
         const sHours = sleepRepository.displayWeekSleepHours(userId1, formattedDate1)
         const sqHours = sleepRepository.displayWeekSleepQualityHours(userId1, formattedDate1)
-        sleepRepository.displayWeeklySleepChart(sleepChart, dateSleep, sHours, sqHours)
+        displayWeeklySleepChart(sleepChart, dateSleep, sHours, sqHours)
         avgDisplayBoxSleep.innerText = `Average Sleep Qualty of All Time: \n${sleepRepository.displayUserSleepQualityAllTime(userId1)}
                                         \nAverage Hours of Sleep of All Time: \n${sleepRepository.displayUserHoursSleepAllTime(userId1)}`
     }
