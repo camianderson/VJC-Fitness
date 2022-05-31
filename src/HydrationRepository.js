@@ -2,11 +2,11 @@ import Hydration from '../src/Hydration';
 
 class HydrationRepository {
     constructor(data) {
-      this.users = data.map((userObj) => { return new Hydration(userObj) });
+      this.hydration = data.map((userObj) => { return new Hydration(userObj) });
     }
 
     displayAllTimeAvgOunces(id) {
-        const userAqua = this.users.filter((user) => {
+        const userAqua = this.hydration.filter((user) => {
             return user.id === id;
         })
         const average = userAqua.reduce((sum, person) => {
@@ -17,7 +17,7 @@ class HydrationRepository {
     }
 
     displayDailyAvgOunces(id, date) {
-        const userByDay = this.users.filter((user) => {
+        const userByDay = this.hydration.filter((user) => {
             return user.id === id;
         })
         const waterByDay = userByDay.find((user) => {
@@ -27,7 +27,7 @@ class HydrationRepository {
     }
 
     displayWeekWaterIntake(id, date){
-        const filteredFluidById = this.users.filter((user) => {
+        const filteredFluidById = this.hydration.filter((user) => {
             return user.id === id;
         });
         const index = filteredFluidById.findIndex(data => {
@@ -41,7 +41,7 @@ class HydrationRepository {
     }
 
     displayWaterByDate(id, date) {
-        const dateWaterIntake = this.users.filter((user) => {
+        const dateWaterIntake = this.hydration.filter((user) => {
             return user.id === id;
         });
         const index = dateWaterIntake.findIndex(data => {
