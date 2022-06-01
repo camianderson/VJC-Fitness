@@ -54,45 +54,56 @@ function loadData () {
         userRepository = new UserRepository(userData);
         hydrationRepository = new HydrationRepository(userHydrationData);
         sleepRepository = new SleepRepository(userSleepData);
-        document.getElementById('userDropDown').onchange = () => {
-            chooseUser(userRepository, hydrationRepository);
-        };
-        var users = userRepository.users
-        displayDropDownInfo(users);
-        datepicker('#date-picker-water', {
-            minDate: new Date(2019, 5, 15),
-            maxDate: new Date(2020, 0, 22),
-            startDate: new Date(2020, 0, 22),
-            formatter: (input, date, _instance) => {
-                const newDate = dateFormat(date, "yyyy/mm/dd")
-                input.value = newDate
-            },
-            onSelect: (_instance, date) => {
-                var selection = document.getElementById('userDropDown');
-                var userId = parseInt(selection.options[selection.selectedIndex].value);
-                const formattedDate = dateFormat(date, "yyyy/mm/dd");
-                displayWaterData(userId, formattedDate, hydrationRepository)
-            }
-        })
 
-        datepicker('#date-picker-sleep', {
-            minDate: new Date(2019, 5, 15),
-            maxDate: new Date(2020, 0, 22),
-            startDate: new Date(2020, 0, 22),
-            formatter: (input, date, _instance) => {
-                const newDate = dateFormat(date, "yyyy/mm/dd")
-                input.value = newDate
-            },
-            onSelect: (_instance, date) => {
-                var selection = document.getElementById('userDropDown');
-                var userId = parseInt(selection.options[selection.selectedIndex].value);
-                const formattedDate = dateFormat(date, "yyyy/mm/dd");
-                try{
-                displaySleepData(userId, formattedDate, sleepRepository)}
-                catch{}
-            }
-        })
+        generateDataOnChange(userRepository, hydrationRepository)
+        displayWaterDataByDate(userRepository, hydrationRepository)
+        displaySleepDataByDate(sleepRepository)
     })
+}
+
+function generateDataOnChange(userRepository, hydrationRepository) {
+  document.getElementById('userDropDown').onchange = () => {
+      chooseUser(userRepository, hydrationRepository, sleepRepository);
+  }
+}
+
+function displayWaterDataByDate(userRepository, hydrationRepository) {
+  displayDropDownInfo(userRepository.users);
+  datepicker('#date-picker-water', {
+      // minDate: new Date(2019, 5, 15),
+      // maxDate: new Date(2020, 0, 22),
+      startDate: new Date(2020, 0, 22),
+      formatter: (input, date, _instance) => {
+          const newDate = dateFormat(date, "yyyy/mm/dd")
+          input.value = newDate
+      },
+      onSelect: (_instance, date) => {
+          var selection = document.getElementById('userDropDown');
+          var userId = parseInt(selection.options[selection.selectedIndex].value);
+          const formattedDate = dateFormat(date, "yyyy/mm/dd");
+          displayWaterData(userId, formattedDate, hydrationRepository)
+      }
+  })
+}
+
+function displaySleepDataByDate(sleepRepository) {
+  datepicker('#date-picker-sleep', {
+      // minDate: new Date(2019, 5, 15),
+      // maxDate: new Date(2020, 0, 22),
+      startDate: new Date(2020, 0, 22),
+      formatter: (input, date, _instance) => {
+          const newDate = dateFormat(date, "yyyy/mm/dd")
+          input.value = newDate
+      },
+      onSelect: (_instance, date) => {
+          var selection = document.getElementById('userDropDown');
+          var userId = parseInt(selection.options[selection.selectedIndex].value);
+          const formattedDate = dateFormat(date, "yyyy/mm/dd");
+          try{
+          displaySleepData(userId, formattedDate, sleepRepository)}
+          catch{}
+      }
+  })
 }
 
 function displayDropDownInfo(users) {
@@ -106,12 +117,14 @@ function displayDropDownInfo(users) {
     })
 }
 
-function chooseUser(userRepository) {
+function chooseUser(userRepository, hydrationRepository, sleepRepository) {
     clearData();
     var selection = document.getElementById('userDropDown');
     var userId = parseInt(selection.options[selection.selectedIndex].value);
     var user = userRepository.getUser(userId)
     displayUserInfo(user, userRepository);
+    displaySleepData(userId, '2020/01/22', sleepRepository)
+    displayWaterData(userId, '2020/01/22', hydrationRepository)
 };
 
 function displayUserInfo(user, userRepository, hydrationRepository) {
@@ -159,8 +172,8 @@ function displayActivityData() {
 }
 
 function clearData(){
-    waterChart.clear();
-    sleepChart.clear();
+    // waterChart.clear();
+    // sleepChart.clear();
     dailyResultWater.innerText = '';
     avgDisplayBoxWater.innerText = `All-Time Daily Water Intake Average:`;
     dailyResultSleep.innerText = '';
