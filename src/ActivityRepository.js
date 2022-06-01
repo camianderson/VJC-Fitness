@@ -10,6 +10,7 @@ class ActivityRepository {
         const userStepsByDay = this.activity.filter((user) => {
             return user.id === id;
         })
+        console.log()
         const stepsPerDay = userStepsByDay.find((user) => {
             return user.date === date;
         }).numSteps
