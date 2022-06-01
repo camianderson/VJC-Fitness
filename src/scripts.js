@@ -41,9 +41,9 @@ var sleepContainer = document.querySelector('#sleepContainer');
 
 // ****** event listeners ******
 window.addEventListener('load', loadData);
-waterButton.addEventListener('click', waterDataDisplay);
-sleepButton.addEventListener('click', sleepDataDisplay);
-activityButton.addEventListener('click', activityDataDisplay);
+waterButton.addEventListener('click', displayWaterData);
+sleepButton.addEventListener('click', displaySleepData);
+activityButton.addEventListener('click', displayActivityData);
 
 
 function loadData () {
@@ -71,7 +71,7 @@ function loadData () {
                 var selection = document.getElementById('userDropDown');
                 var userId = parseInt(selection.options[selection.selectedIndex].value);
                 const formattedDate = dateFormat(date, "yyyy/mm/dd");
-                waterDataDisplay(userId, formattedDate, hydrationRepository)
+                displayWaterData(userId, formattedDate, hydrationRepository)
             }
         })
 
@@ -88,7 +88,7 @@ function loadData () {
                 var userId = parseInt(selection.options[selection.selectedIndex].value);
                 const formattedDate = dateFormat(date, "yyyy/mm/dd");
                 try{
-                sleepDataDisplay(userId, formattedDate, sleepRepository)}
+                displaySleepData(userId, formattedDate, sleepRepository)}
                 catch{}
             }
         })
@@ -122,10 +122,10 @@ function displayUserInfo(user, userRepository, hydrationRepository) {
         <br>
         Stride Length: ${user.strideLength}<br>
         Daily Step Goal: ${user.dailyStepGoal}<br>
-        Average Users Step Goal: ${userRepository.averageStepGoal()}`
+        Average Users Step Goal: ${userRepository.displayAverageStepGoal()}`
 };
 
-function waterDataDisplay(userId, formattedDate, hydrationRepository) {
+function displayWaterData(userId, formattedDate, hydrationRepository) {
     waterContainer.classList.remove("hidden");
     sleepContainer.classList.add("hidden");
     const userOuncesForDate = hydrationRepository.displayDailyAvgOunces(userId, formattedDate)
@@ -136,7 +136,7 @@ function waterDataDisplay(userId, formattedDate, hydrationRepository) {
     avgDisplayBoxWater.innerText = `All-Time Daily Water Intake Average: ${hydrationRepository.displayAllTimeAvgOunces(userId)}oz`
 }
 
-function sleepDataDisplay(userId1, formattedDate1, sleepRepository) {
+function displaySleepData(userId1, formattedDate1, sleepRepository) {
     waterContainer.classList.add("hidden");
     sleepContainer.classList.remove("hidden");
     try{
@@ -154,7 +154,7 @@ function sleepDataDisplay(userId1, formattedDate1, sleepRepository) {
     catch{}
 }
 
-function activityDataDisplay() {
+function displayActivityData() {
   window.alert('Activity Data Coming Soon!')
 }
 
