@@ -12,7 +12,7 @@ describe('Hydration Repository', () => {
       expect(HydrationRepository).to.be.a('function');
     });
     it('should have users', function () {
-        expect(water.users[0]).is.instanceOf(Hydration);
+        expect(water.hydration[0]).is.instanceOf(Hydration);
     });
     it('should display average water intake of all time', function () {
         expect(water.displayAllTimeAvgOunces(1)).to.equal(62);
@@ -21,6 +21,9 @@ describe('Hydration Repository', () => {
         expect(water.displayDailyAvgOunces(1, "2019/06/15")).to.equal(37);
     });
     it('should display weekly water intake', function () {
-        expect(water.displayDailyAvgOunces(1, "2019/06/15")).to.equal(37);
+        expect(water.displayWeekWaterIntake(1, "2019/06/20")).to.deep.equal([87]);
+    });
+    it('should display water by date', function () {
+        expect(water.displayWaterByDate(1, "2019/06/20")).to.deep.equal(['2019/06/20']);
     });
 })

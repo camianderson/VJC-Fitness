@@ -82,7 +82,7 @@ class SleepRepository{
             sum += person.sleepQuality
             return sum
         }, 0)
-        const number = (average/this.users.length).toFixed(1);
+        const number = (average/this.sleep.length).toFixed(1);
         return parseFloat(number)
     }
 

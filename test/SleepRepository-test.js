@@ -15,7 +15,7 @@ describe('Sleep Repository', () => {
       expect(SleepRepository).to.be.a('function');
     });
     it('should have users', function () {
-        expect(sleep.users[0]).is.instanceOf(Sleep);
+        expect(sleep.sleep[0]).is.instanceOf(Sleep);
     });
     it('should display average sleep quality of all time', function () {
         expect(sleep.displayUserSleepQualityAllTime(1)).to.deep.equal(3.4);
@@ -34,5 +34,11 @@ describe('Sleep Repository', () => {
     });
     it('should display sleep quality average for all users', function () {
         expect(sleep.displayAverageSleepQualityAllUser()).to.equal(3.1);
+    });
+    it('should display average of hours slept of all time', function () {
+        expect(sleep.displayUserHoursSleepAllTime(1)).to.equal(6.9);
+    });
+    it('should display week dates', function () {
+        expect(sleep.displaySleepWeek(1, "2019/06/21")).to.deep.equal(['2019/06/15', '2019/06/16', '2019/06/17', '2019/06/18', '2019/06/19', '2019/06/20', '2019/06/21']);
     });
 })
