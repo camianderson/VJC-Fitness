@@ -6,30 +6,55 @@ class ActivityRepository {
         this.activity = data.map((userObj) => { return new Activity(userObj) });
     }
 
-// For a specific day (specified by a date), return the miles a user has walked 
-// based on their number of steps (use their strideLength to help calculate this)
-// numSteps * strideLength / 5280
-displayMilesWalked(id, date, userData) {
+displayMilesWalkedByDay(id, date, userData) {
     const findUserStride = userData.find(user => {
         return user.id === id
     }).strideLength
-
     const userStepsByDay = this.activity.filter((user) => {
         return user.id === id;
     })
     const stepsPerDay = userStepsByDay.find((user) => {
         return user.date === date;
     }).numSteps
-
-    // average the users steps
     let average = stepsPerDay * findUserStride / 5280
     return parseFloat(average.toFixed(1))
 }
 
-    
+displayMinutesActiveByDay(id, date) {
+    const userActivity = this.activity.filter((user) => {
+        return user.id === id;
+    })
+    const activityByDate = userActivity.find(user => {
+        return user.date === date;
+    }).minutesActive
+    return activityByDate
+}
 
-// For a user, (identified by their userID) how many minutes were they active for a given day (specified by a date)?
 // For a user, how many minutes active did they average for a given week (7 days)?
+displayAvgMinutesActiveByWeek(id, date) {
+    const activity = this.activity.filter((user) => {
+        return user.id === id;
+    });
+    const index = activity.findIndex(data => {
+        return data.date === date
+    })
+    const minutesActiveForReal = activity.slice((index - 6) , (index + 1))
+      .map(data => {
+        return data.minutesActive
+    })
+    const average = minutesActiveForReal.reduce((sum, minute) => {
+        sum += minute
+        return sum
+    }, 0)
+    console.log(activity)
+    return parseInt(average / 7);
+}
+
+
+
+
+
+
 // For a user, did they reach their step goal for a given day (specified by a date)?
 // For a user, find all the days where they exceeded their step goal
 // For a user, find their all-time stair climbing record
