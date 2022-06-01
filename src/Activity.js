@@ -1,3 +1,5 @@
+
+
 class Activity {
     constructor(userActivityData) {
         this.id = userActivityData.userID;
