@@ -89,6 +89,29 @@
           </div>
         </div>
       </div>
+      <div class="category-container hidden" id="activityContainer">
+        <div class="title-container">
+          <p>Activity</p>
+        </div>
+        <div class="stats-container">
+          <div class="img-box">
+            <img class="category-image" src="./images/sleeping.png">
+          </div>
+          <div class="chart-box">
+            <article class="category-chart">
+                <canvas class="activity-chart" id="activityChart"></canvas>
+            </article>
+          </div>
+          <div class="average-box">
+            <article class="daily-goal" id="dailyGoal">
+              <div>Display Your activity History</div>
+              <input type="text" name="date-picker-activity" placeholder="Select Date" id="date-picker-activity">
+              <article id="user-hours-for-day-result"></article>
+            </article>
+            <article class="average-goal" id="averageGoalSleep"></article>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
   <!-- <script src="datepicker.min.js"></script> -->
