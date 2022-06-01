@@ -6,6 +6,26 @@ class ActivityRepository {
         this.activity = data.map((userObj) => { return new Activity(userObj) });
     }
 
+    displayStepsWalkedByDay(id, date) {
+        const userStepsByDay = this.activity.filter((user) => {
+            return user.id === id;
+        })
+        const stepsPerDay = userStepsByDay.find((user) => {
+            return user.date === date;
+        }).numSteps
+        return stepsPerDay;
+    }
+
+    displayStairsClimbedByDay(id, date) {
+        const userStairsByDay = this.activity.filter((user) => {
+            return user.id === id;
+        })
+        const stairsPerDay = userStairsByDay.find((user) => {
+            return user.date === date;
+        }).flightsOfStairs
+        return stairsPerDay;
+    }
+
     displayMilesWalkedByDay(id, date, userData) {
         const findUserStride = userData.find(user => {
             return user.id === id
@@ -110,6 +130,7 @@ class ActivityRepository {
         }, 0)
         return parseInt(totalMinutesActive/userActivities.length)
     }
+
 }
 
 

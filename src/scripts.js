@@ -8,6 +8,7 @@ import './images/sleeping.png';
 import UserRepository from './UserRepository';
 import HydrationRepository from './HydrationRepository';
 import SleepRepository from './SleepRepository';
+import ActivityRepository from './ActivityRepository';
 import {displayWeeklySleepChart, displayWeeklyWaterChart} from './Charts.js';
 import {getData} from './apiCalls';
 import datepicker from 'js-datepicker';
@@ -19,9 +20,11 @@ Chart.register(...registerables);
 var userData;
 var userHydrationData;
 var userSleepData;
+var userActivityData;
 var userRepository;
 var hydrationRepository;
 var sleepRepository;
+var activityRepository;
 var waterChart = new Chart("waterChart", {type: "bar"})
 var sleepChart = new Chart("sleepChart", {type: "bar"})
 
@@ -37,6 +40,7 @@ var dailyResultWater = document.getElementById('user-ounce-for-day-result');
 var dailyResultSleep = document.getElementById('user-hours-for-day-result');
 var waterContainer = document.querySelector('#waterContainer');
 var sleepContainer = document.querySelector('#sleepContainer');
+var activityContainer = document.querySelector('#activityContainer');
 
 
 // ****** event listeners ******
@@ -47,13 +51,15 @@ activityButton.addEventListener('click', displayActivityData);
 
 
 function loadData () {
-    Promise.all([getData('users'), getData('hydration'), getData('sleep')]).then(data => {
-        userData = data[0].userData
-        userHydrationData = data[1].hydrationData
-        userSleepData = data[2].sleepData
+    Promise.all([getData('users'), getData('hydration'), getData('sleep'), getData('activity')]).then(data => {
+        userData = data[0].userData;
+        userHydrationData = data[1].hydrationData;
+        userSleepData = data[2].sleepData;
+        userActivityData = data[3].activityData;
         userRepository = new UserRepository(userData);
         hydrationRepository = new HydrationRepository(userHydrationData);
         sleepRepository = new SleepRepository(userSleepData);
+        activityRepository = new ActivityRepository(userActivityData);
 
         generateDataOnChange(userRepository, hydrationRepository)
         displayWaterDataByDate(userRepository, hydrationRepository)
@@ -61,9 +67,9 @@ function loadData () {
     })
 }
 
-function generateDataOnChange(userRepository, hydrationRepository) {
+function generateDataOnChange(userRepository, hydrationRepository, sleepRepository, activityRepository) {
   document.getElementById('userDropDown').onchange = () => {
-      chooseUser(userRepository, hydrationRepository, sleepRepository);
+      chooseUser(userRepository, hydrationRepository, sleepRepository, activityRepository );
   }
 }
 
@@ -117,17 +123,18 @@ function displayDropDownInfo(users) {
     })
 }
 
-function chooseUser(userRepository, hydrationRepository, sleepRepository) {
+function chooseUser(userRepository, hydrationRepository, sleepRepository, activityRepository) {
     clearData();
     var selection = document.getElementById('userDropDown');
     var userId = parseInt(selection.options[selection.selectedIndex].value);
-    var user = userRepository.getUser(userId)
+    var user = userRepository.getUser(userId);
     displayUserInfo(user, userRepository);
-    displaySleepData(userId, '2020/01/22', sleepRepository)
-    displayWaterData(userId, '2020/01/22', hydrationRepository)
+    // displayActivityData(userId, '2020/01/21', activityRepository);
+    displaySleepData(userId, '2020/01/22', sleepRepository);
+    displayWaterData(userId, '2020/01/22', hydrationRepository);
 };
 
-function displayUserInfo(user, userRepository, hydrationRepository) {
+function displayUserInfo(user, userRepository) {
     welcomeUser.innerText = `Welcome, ${user.returnFirstName()}!`;
     userInfo.innerHTML =
         `Address: ${user.address}<br>
@@ -140,6 +147,7 @@ function displayUserInfo(user, userRepository, hydrationRepository) {
 
 function displayWaterData(userId, formattedDate, hydrationRepository) {
     waterContainer.classList.remove("hidden");
+    activityContainer.classList.add("hidden");
     sleepContainer.classList.add("hidden");
     const userOuncesForDate = hydrationRepository.displayDailyAvgOunces(userId, formattedDate)
     const ouncesIntake = hydrationRepository.displayWeekWaterIntake(userId, formattedDate)
@@ -149,26 +157,51 @@ function displayWaterData(userId, formattedDate, hydrationRepository) {
     avgDisplayBoxWater.innerText = `All-Time Daily Water Intake Average: ${hydrationRepository.displayAllTimeAvgOunces(userId)}oz`
 }
 
-function displaySleepData(userId1, formattedDate1, sleepRepository) {
+function displaySleepData(userId, formattedDate, sleepRepository) {
     waterContainer.classList.add("hidden");
+    activityContainer.classList.add("hidden");
     sleepContainer.classList.remove("hidden");
     try{
-        const dailySleepHours = sleepRepository.displayDailySleepHours(userId1, formattedDate1)
-        const dailyQualityOfSleep = sleepRepository.displaySleepQualityByDate(userId1, formattedDate1)
+        const dailySleepHours = sleepRepository.displayDailySleepHours(userId, formattedDate)
+        const dailyQualityOfSleep = sleepRepository.displaySleepQualityByDate(userId, formattedDate)
         dailyResultSleep.innerText = `Hours Slept: ${dailySleepHours}
                                     Quality of Sleep: ${dailyQualityOfSleep}`
-        const dateSleep = sleepRepository.displaySleepWeek(userId1, formattedDate1)
-        const sHours = sleepRepository.displayWeekSleepHours(userId1, formattedDate1)
-        const sqHours = sleepRepository.displayWeekSleepQualityHours(userId1, formattedDate1)
+        const dateSleep = sleepRepository.displaySleepWeek(userId, formattedDate)
+        const sHours = sleepRepository.displayWeekSleepHours(userId, formattedDate)
+        const sqHours = sleepRepository.displayWeekSleepQualityHours(userId, formattedDate)
         displayWeeklySleepChart(sleepChart, dateSleep, sHours, sqHours)
-        avgDisplayBoxSleep.innerText = `Average Sleep Qualty of All Time: \n${sleepRepository.displayUserSleepQualityAllTime(userId1)}
-                                        \nAverage Hours of Sleep of All Time: \n${sleepRepository.displayUserHoursSleepAllTime(userId1)}`
+        avgDisplayBoxSleep.innerText = `Average Sleep Qualty of All Time: \n${sleepRepository.displayUserSleepQualityAllTime(userId)}
+                                        \nAverage Hours of Sleep of All Time: \n${sleepRepository.displayUserHoursSleepAllTime(userId)}`
     }
     catch{}
 }
 
-function displayActivityData() {
-  window.alert('Activity Data Coming Soon!')
+function displayActivityData(userId, formattedDate, activityRepository, userData) {
+    waterContainer.classList.add("hidden");
+    sleepContainer.classList.add("hidden");
+    activityContainer.classList.remove("hidden");
+    const dailyStepsPerDate = activityRepository.displayStepsWalkedByDay(userId, formattedDate);
+    const dailyMinutesActive = activityRepository.displayMinutesActiveByDay(userId, formattedDate);
+    const dailyMilesWalked = activityRepository.displayMilesWalkedByDay(userId, formattedDate, userData);
+    const dailyStairsClimbed = activityRepository.displayStairsClimbedByDay(userId, formattedDate);
+    const averageStepsAllUsers = activityRepository.displayAvgStepsForAllUsers(formattedDate);
+    const averageMinutesActive = activityRepository.displayAvgMinutesActiveForAllUsers(formattedDate);
+    const averageFlightsOfStairs = activityRepository.displayAvgStairsClimbedForAllUsers(formattedDate);
+        
+    
+    dailyResultSleep.innerText = `Hours Slept: ${dailySleepHours}
+                                    Quality of Sleep: ${dailyQualityOfSleep}`
+        const dateSleep = sleepRepository.displaySleepWeek(userId, formattedDate)
+        const sHours = sleepRepository.displayWeekSleepHours(userId, formattedDate)
+        const sqHours = sleepRepository.displayWeekSleepQualityHours(userId, formattedDate)
+        displayWeeklySleepChart(sleepChart, dateSleep, sHours, sqHours)
+        avgDisplayBoxSleep.innerText = `Average Sleep Qualty of All Time: \n${sleepRepository.displayUserSleepQualityAllTime(userId)}
+                                        \nAverage Hours of Sleep of All Time: \n${sleepRepository.displayUserHoursSleepAllTime(userId)}`
+
+                                        
+                                        
+                                        // For a user, a weekly view of their step count, flights of stairs climbed, and minutes active
+
 }
 
 function clearData(){
