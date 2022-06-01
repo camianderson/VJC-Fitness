@@ -15,6 +15,14 @@ describe('Activity Repository', () => {
   it('should have activity', function () {
     expect(activity1.activity[0]).is.instanceOf(Activity);
   });
+  it('should display steps walked per day', function () {
+    expect(activity1.displayStepsWalkedByDay(1, "2019/06/15")).to.equal(3577);
+    expect(activity1.displayStepsWalkedByDay(8, "2019/06/15")).to.equal(10333);
+  });
+  it('should display stairs climbed per day', function () {
+    expect(activity1.displayStairsClimbedByDay(1, "2019/06/15")).to.equal(16);
+    expect(activity1.displayStairsClimbedByDay(8, "2019/06/15")).to.equal(31);
+  });
   it('should display miles walked per day', function () {
     expect(activity1.displayMilesWalkedByDay(1, "2019/06/15", userData)).to.equal(2.9);
     expect(activity1.displayMilesWalkedByDay(8, "2019/06/15", userData)).to.equal(8.6);

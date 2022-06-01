@@ -180,9 +180,16 @@ function displayActivityData(userId, formattedDate, activityRepository, userData
     waterContainer.classList.add("hidden");
     sleepContainer.classList.add("hidden");
     activityContainer.classList.remove("hidden");
-    const dailyStepsPerDay = activityRepository.displayDailySleepHours(userId, formattedDate)
-        const dailyQualityOfSleep = sleepRepository.displaySleepQualityByDate(userId, formattedDate)
-        dailyResultSleep.innerText = `Hours Slept: ${dailySleepHours}
+    const dailyStepsPerDate = activityRepository.displayStepsWalkedByDay(userId, formattedDate);
+    const dailyMinutesActive = activityRepository.displayMinutesActiveByDay(userId, formattedDate);
+    const dailyMilesWalked = activityRepository.displayMilesWalkedByDay(userId, formattedDate, userData);
+    const dailyStairsClimbed = activityRepository.displayStairsClimbedByDay(userId, formattedDate);
+    const averageStepsAllUsers = activityRepository.displayAvgStepsForAllUsers(formattedDate);
+    const averageMinutesActive = activityRepository.displayAvgMinutesActiveForAllUsers(formattedDate);
+    const averageFlightsOfStairs = activityRepository.displayAvgStairsClimbedForAllUsers(formattedDate);
+        
+    
+    dailyResultSleep.innerText = `Hours Slept: ${dailySleepHours}
                                     Quality of Sleep: ${dailyQualityOfSleep}`
         const dateSleep = sleepRepository.displaySleepWeek(userId, formattedDate)
         const sHours = sleepRepository.displayWeekSleepHours(userId, formattedDate)
@@ -191,10 +198,8 @@ function displayActivityData(userId, formattedDate, activityRepository, userData
         avgDisplayBoxSleep.innerText = `Average Sleep Qualty of All Time: \n${sleepRepository.displayUserSleepQualityAllTime(userId)}
                                         \nAverage Hours of Sleep of All Time: \n${sleepRepository.displayUserHoursSleepAllTime(userId)}`
 
-                                        // For a user, the number of steps for the latest day
-                                        // For a user, the number minutes active for the latest day
-                                        // For a user, the distance they have walked (in miles) for the latest day based on their step count
-                                        // How their number of steps, minutes active, and flights of stairs climbed compares to all users for the latest day
+                                        
+                                        
                                         // For a user, a weekly view of their step count, flights of stairs climbed, and minutes active
 
 }
