@@ -30,7 +30,6 @@ displayMinutesActiveByDay(id, date) {
     return activityByDate
 }
 
-// For a user, how many minutes active did they average for a given week (7 days)?
 displayAvgMinutesActiveByWeek(id, date) {
     const activity = this.activity.filter((user) => {
         return user.id === id;
@@ -49,7 +48,6 @@ displayAvgMinutesActiveByWeek(id, date) {
     return parseInt(average / 7);
 }
 
-// For a user, did they reach their step goal for a given day (specified by a date)?
     displayStepGoalComparison(id, date, userData) {
         const userStepGoal = userData.find(user => {
             return user.id === id
@@ -67,12 +65,35 @@ displayAvgMinutesActiveByWeek(id, date) {
         }
     }
 
-
-
 // For a user, find all the days where they exceeded their step goal
-// For a user, find their all-time stair climbing record
+  
+    displayStairClimbingRecord(id){
+        const userActivities = this.activity.filter((user) => {
+            return user.id === id;
+        })
+        const arrayStairClimbingData = userActivities.map((activity) => {
+            return activity.flightsOfStairs;
+        })
+        const sortedStairClimbingData = arrayStairClimbingData.sort((lower, higher) => {
+           return higher - lower;
+        })
+        return sortedStairClimbingData[0];
+    }
+
 // For all users, what is the average number of:
 // stairs climbed for a specified date
+    displayAvgStairsClimbedForAllUsers(date){
+        const userActivities = this.activity.filter((user) => {
+            return user.date === date;
+        })
+        const totalFlightsOfStairs = userActivities.reduce((sum, activity) => {
+            sum += activity.flightsOfStairs
+            return sum;
+        }, 0)
+        return parseInt(totalFlightsOfStairs/userActivities.length)
+    }
+
+
 // steps taken for a specific date
 // minutes active for a specific date
 }

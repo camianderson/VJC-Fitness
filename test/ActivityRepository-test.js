@@ -31,4 +31,10 @@ describe('Activity Repository', () => {
     expect(activity1.displayStepGoalComparison(1, "2019/06/20", userData)).to.equal("You reached your daily step goal");
     expect(activity1.displayStepGoalComparison(8, "2019/06/15", userData)).to.equal("You reached your daily step goal");
   });
-});
+  it('should display user all-time stair climbing record', function () {
+    expect(activity1.displayStairClimbingRecord(1)).to.equal(33);
+  });
+  it('should display all users average stairs climbed for a specified date', function () {
+    expect(activity1.displayAvgStairsClimbedForAllUsers("2019/06/15")).to.equal(29);
+  });
+})
