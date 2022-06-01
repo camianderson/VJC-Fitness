@@ -2,11 +2,11 @@ import Sleep from '../src/Sleep';
 
 class SleepRepository{
     constructor(data) {
-        this.users = data.map((userObj) => { return new Sleep(userObj) });
+        this.sleep = data.map((userObj) => { return new Sleep(userObj) });
     }
 
     displayUserHoursSleepAllTime(id) {
-        const userSleep = this.users.filter((user) => {
+        const userSleep = this.sleep.filter((user) => {
             return user.id === id;
         })
         const average = userSleep.reduce((sum, person) => {
@@ -18,7 +18,7 @@ class SleepRepository{
     }
 
     displayUserSleepQualityAllTime(id) {
-        const userSleep = this.users.filter((user) => {
+        const userSleep = this.sleep.filter((user) => {
             return user.id === id;
         })
         const average = userSleep.reduce((sum, person) => {
@@ -30,7 +30,7 @@ class SleepRepository{
     }
 
     displayDailySleepHours(id, date) {
-        const userSleep = this.users.filter((user) => {
+        const userSleep = this.sleep.filter((user) => {
             return user.id === id;
         })
         const userSleepByDay = userSleep.find((user) => {
@@ -40,7 +40,7 @@ class SleepRepository{
     }
 
     displaySleepQualityByDate(id, date) {
-        const userSleep = this.users.filter((user) => {
+        const userSleep = this.sleep.filter((user) => {
             return user.id === id;
         })
         const userSleepQualityByDay = userSleep.find((user) => {
@@ -50,7 +50,7 @@ class SleepRepository{
     }
 
     displayWeekSleepHours(id, date) {
-        const dateSleepHours = this.users.filter((user) => {
+        const dateSleepHours = this.sleep.filter((user) => {
             return user.id === id;
         });
         const index = dateSleepHours.findIndex(data => {
@@ -64,7 +64,7 @@ class SleepRepository{
     }
 
     displayWeekSleepQualityHours(id, date) {
-        const dateSleepQualityHours = this.users.filter((user) => {
+        const dateSleepQualityHours = this.sleep.filter((user) => {
             return user.id === id;
         });
         const index = dateSleepQualityHours.findIndex(data => {
@@ -78,16 +78,16 @@ class SleepRepository{
     }
 
     displayAverageSleepQualityAllUser() {
-        const average = this.users.reduce((sum, person) => {
+        const average = this.sleep.reduce((sum, person) => {
             sum += person.sleepQuality
             return sum
         }, 0)
-        const number = (average/this.users.length).toFixed(1);
+        const number = (average/this.sleep.length).toFixed(1);
         return parseFloat(number)
     }
 
     displaySleepWeek(id, date) {
-        const dateSleep = this.users.filter((user) => {
+        const dateSleep = this.sleep.filter((user) => {
             return user.id === id;
         });
         const index = dateSleep.findIndex(data => {
@@ -100,43 +100,6 @@ class SleepRepository{
         return weekDate;
     }
 
-    displayWeeklySleepChart(chart, date, sHours, sqHours) {
-        if(chart != null){
-            chart.destroy()
-        }
-        var barColors = ['steelblue', 'steelblue', 'steelblue', 'steelblue', 'steelblue', 'steelblue', 'steelblue'];
-        var barColors2 = ['cadetblue', 'cadetblue', 'cadetblue', 'cadetblue', 'cadetblue', 'cadetblue', 'cadetblue'];
-        const data = {
-            labels: date,
-            datasets: [{
-                label: 'Sleep Hours',
-                backgroundColor: barColors,
-                data: sHours
-            },
-            {
-                label: 'Sleep Quality',
-                backgroundColor: barColors2,
-                data: sqHours
-            }]
-        }
-        const config = {
-            type: 'bar',
-            data: data,
-            options: {
-                sqHours,
-                sHours,
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: true,
-                    text: 'Sleep Hours & Sleep Quality Per Day'
-                }
-            }
-        }
-
-        var chart = new Chart("sleepChart", config)
-    }
 };
 
 

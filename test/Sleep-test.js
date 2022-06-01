@@ -13,10 +13,16 @@ describe('Sleep', () => {
     it('should instanciate a new user', function(){
         expect(sleep).to.instanceOf(Sleep);
     });
-    it('should have id, date, hours slept, and sleep quality', function(){
+    it('should have id', function(){
         expect(sleep.id).to.equal(1);
+    })
+    it('should have date', function(){
         expect(sleep.date).to.equal('2019/06/15');
+    })
+    it('should have hours slept', function(){
         expect(sleep.hoursSlept).to.equal(6.1);
+    })
+    it('should have sleep quality', function(){
         expect(sleep.sleepQuality).to.equal(2.2);
     })
     it('Sleep id should be a number', function(){

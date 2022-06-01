@@ -14,7 +14,7 @@ class UserRepository {
         return data;
     }
 
-    averageStepGoal(){
+    displayAverageStepGoal(){
         const average = this.users.reduce((sum, person) => {
             sum += person.dailyStepGoal
             return sum

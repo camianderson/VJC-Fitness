@@ -8,6 +8,7 @@ import './images/sleeping.png';
 import UserRepository from './UserRepository';
 import HydrationRepository from './HydrationRepository';
 import SleepRepository from './SleepRepository';
+import {displayWeeklySleepChart, displayWeeklyWaterChart} from './Charts.js';
 import {userDataList, userHydrationList, userSleepList} from './apiCalls';
 import datepicker from 'js-datepicker';
 import dateFormat from 'dateformat'
@@ -40,9 +41,9 @@ var sleepContainer = document.querySelector('#sleepContainer');
 
 // ****** event listeners ******
 window.addEventListener('load', loadData);
-waterButton.addEventListener('click', waterDataDisplay);
-sleepButton.addEventListener('click', sleepDataDisplay);
-activityButton.addEventListener('click', activityDataDisplay);
+waterButton.addEventListener('click', displayWaterData);
+sleepButton.addEventListener('click', displaySleepData);
+activityButton.addEventListener('click', displayActivityData);
 
 
 function loadData () {
@@ -53,45 +54,56 @@ function loadData () {
         userRepository = new UserRepository(userData);
         hydrationRepository = new HydrationRepository(userHydrationData);
         sleepRepository = new SleepRepository(userSleepData);
-        document.getElementById('userDropDown').onchange = () => {
-            chooseUser(userRepository, hydrationRepository);
-        };
-        var users = userRepository.users
-        displayDropDownInfo(users);
-        datepicker('#date-picker-water', {
-            minDate: new Date(2019, 5, 15),
-            maxDate: new Date(2020, 0, 22),
-            startDate: new Date(2020, 0, 22),
-            formatter: (input, date, _instance) => {
-                const newDate = dateFormat(date, "yyyy/mm/dd")
-                input.value = newDate
-            },
-            onSelect: (_instance, date) => {
-                var selection = document.getElementById('userDropDown');
-                var userId = parseInt(selection.options[selection.selectedIndex].value);
-                const formattedDate = dateFormat(date, "yyyy/mm/dd");
-                waterDataDisplay(userId, formattedDate, hydrationRepository)
-            }
-        })
 
-        datepicker('#date-picker-sleep', {
-            minDate: new Date(2019, 5, 15),
-            maxDate: new Date(2020, 0, 22),
-            startDate: new Date(2020, 0, 22),
-            formatter: (input, date, _instance) => {
-                const newDate = dateFormat(date, "yyyy/mm/dd")
-                input.value = newDate
-            },
-            onSelect: (_instance, date) => {
-                var selection = document.getElementById('userDropDown');
-                var userId = parseInt(selection.options[selection.selectedIndex].value);
-                const formattedDate = dateFormat(date, "yyyy/mm/dd");
-                try{
-                sleepDataDisplay(userId, formattedDate, sleepRepository)}
-                catch{}
-            }
-        })
+        generateDataOnChange(userRepository, hydrationRepository)
+        displayWaterDataByDate(userRepository, hydrationRepository)
+        displaySleepDataByDate(sleepRepository)
     })
+}
+
+function generateDataOnChange(userRepository, hydrationRepository) {
+  document.getElementById('userDropDown').onchange = () => {
+      chooseUser(userRepository, hydrationRepository, sleepRepository);
+  }
+}
+
+function displayWaterDataByDate(userRepository, hydrationRepository) {
+  displayDropDownInfo(userRepository.users);
+  datepicker('#date-picker-water', {
+      // minDate: new Date(2019, 5, 15),
+      // maxDate: new Date(2020, 0, 22),
+      startDate: new Date(2020, 0, 22),
+      formatter: (input, date, _instance) => {
+          const newDate = dateFormat(date, "yyyy/mm/dd")
+          input.value = newDate
+      },
+      onSelect: (_instance, date) => {
+          var selection = document.getElementById('userDropDown');
+          var userId = parseInt(selection.options[selection.selectedIndex].value);
+          const formattedDate = dateFormat(date, "yyyy/mm/dd");
+          displayWaterData(userId, formattedDate, hydrationRepository)
+      }
+  })
+}
+
+function displaySleepDataByDate(sleepRepository) {
+  datepicker('#date-picker-sleep', {
+      // minDate: new Date(2019, 5, 15),
+      // maxDate: new Date(2020, 0, 22),
+      startDate: new Date(2020, 0, 22),
+      formatter: (input, date, _instance) => {
+          const newDate = dateFormat(date, "yyyy/mm/dd")
+          input.value = newDate
+      },
+      onSelect: (_instance, date) => {
+          var selection = document.getElementById('userDropDown');
+          var userId = parseInt(selection.options[selection.selectedIndex].value);
+          const formattedDate = dateFormat(date, "yyyy/mm/dd");
+          try{
+          displaySleepData(userId, formattedDate, sleepRepository)}
+          catch{}
+      }
+  })
 }
 
 function displayDropDownInfo(users) {
@@ -105,12 +117,14 @@ function displayDropDownInfo(users) {
     })
 }
 
-function chooseUser(userRepository) {
+function chooseUser(userRepository, hydrationRepository, sleepRepository) {
     clearData();
     var selection = document.getElementById('userDropDown');
     var userId = parseInt(selection.options[selection.selectedIndex].value);
     var user = userRepository.getUser(userId)
     displayUserInfo(user, userRepository);
+    displaySleepData(userId, '2020/01/22', sleepRepository)
+    displayWaterData(userId, '2020/01/22', hydrationRepository)
 };
 
 function displayUserInfo(user, userRepository, hydrationRepository) {
@@ -121,21 +135,21 @@ function displayUserInfo(user, userRepository, hydrationRepository) {
         <br>
         Stride Length: ${user.strideLength}<br>
         Daily Step Goal: ${user.dailyStepGoal}<br>
-        Average Users Step Goal: ${userRepository.averageStepGoal()}`
+        Average Users Step Goal: ${userRepository.displayAverageStepGoal()}`
 };
 
-function waterDataDisplay(userId, formattedDate, hydrationRepository) {
+function displayWaterData(userId, formattedDate, hydrationRepository) {
     waterContainer.classList.remove("hidden");
     sleepContainer.classList.add("hidden");
     const userOuncesForDate = hydrationRepository.displayDailyAvgOunces(userId, formattedDate)
     const ouncesIntake = hydrationRepository.displayWeekWaterIntake(userId, formattedDate)
     const dateIntake = hydrationRepository.displayWaterByDate(userId, formattedDate)
     dailyResultWater.innerText = `\nOn This Date: \n${userOuncesForDate}oz`
-    hydrationRepository.displayWeeklyWaterChart(waterChart, dateIntake, ouncesIntake)
+    displayWeeklyWaterChart(waterChart, dateIntake, ouncesIntake)
     avgDisplayBoxWater.innerText = `All-Time Daily Water Intake Average: ${hydrationRepository.displayAllTimeAvgOunces(userId)}oz`
 }
 
-function sleepDataDisplay(userId1, formattedDate1, sleepRepository) {
+function displaySleepData(userId1, formattedDate1, sleepRepository) {
     waterContainer.classList.add("hidden");
     sleepContainer.classList.remove("hidden");
     try{
@@ -146,20 +160,20 @@ function sleepDataDisplay(userId1, formattedDate1, sleepRepository) {
         const dateSleep = sleepRepository.displaySleepWeek(userId1, formattedDate1)
         const sHours = sleepRepository.displayWeekSleepHours(userId1, formattedDate1)
         const sqHours = sleepRepository.displayWeekSleepQualityHours(userId1, formattedDate1)
-        sleepRepository.displayWeeklySleepChart(sleepChart, dateSleep, sHours, sqHours)
+        displayWeeklySleepChart(sleepChart, dateSleep, sHours, sqHours)
         avgDisplayBoxSleep.innerText = `Average Sleep Qualty of All Time: \n${sleepRepository.displayUserSleepQualityAllTime(userId1)}
                                         \nAverage Hours of Sleep of All Time: \n${sleepRepository.displayUserHoursSleepAllTime(userId1)}`
     }
     catch{}
 }
 
-function activityDataDisplay() {
+function displayActivityData() {
   window.alert('Activity Data Coming Soon!')
 }
 
 function clearData(){
-    waterChart.clear();
-    sleepChart.clear();
+    // waterChart.clear();
+    // sleepChart.clear();
     dailyResultWater.innerText = '';
     avgDisplayBoxWater.innerText = `All-Time Daily Water Intake Average:`;
     dailyResultSleep.innerText = '';
