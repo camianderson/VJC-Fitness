@@ -26,4 +26,21 @@ describe('Activity Repository', () => {
   it('should display average minutes active per week', function () {
     expect(activity1.displayAvgMinutesActiveByWeek(1, "2019/06/21")).to.equal(159);
   });
-});
+  it('should display if the user was able to reach their daily step goal', function () {
+    expect(activity1.displayStepGoalComparison(1, "2019/06/21", userData)).to.equal("You didn't reach your daily step goal");
+    expect(activity1.displayStepGoalComparison(1, "2019/06/20", userData)).to.equal("You reached your daily step goal");
+    expect(activity1.displayStepGoalComparison(8, "2019/06/15", userData)).to.equal("You reached your daily step goal");
+  });
+  it('should display user all-time stair climbing record', function () {
+    expect(activity1.displayStairClimbingRecord(1)).to.equal(33);
+  });
+  it('should display all users average stairs climbed for a specified date', function () {
+    expect(activity1.displayAvgStairsClimbedForAllUsers("2019/06/15")).to.equal(29);
+  });
+  it('should display all users average steps for a specified date', function () {
+    expect(activity1.displayAvgStepsForAllUsers("2019/06/15")).to.equal(7078);
+  });
+  it('should display all users average minutes active for a specified date', function () {
+    expect(activity1.displayAvgMinutesActiveForAllUsers("2019/06/15")).to.equal(100);
+  });
+})
