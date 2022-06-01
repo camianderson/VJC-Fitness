@@ -9,7 +9,7 @@ import UserRepository from './UserRepository';
 import HydrationRepository from './HydrationRepository';
 import SleepRepository from './SleepRepository';
 import {displayWeeklySleepChart, displayWeeklyWaterChart} from './Charts.js';
-import {userDataList, userHydrationList, userSleepList} from './apiCalls';
+import {getData} from './apiCalls';
 import datepicker from 'js-datepicker';
 import dateFormat from 'dateformat'
 import { Chart, registerables } from 'chart.js';
@@ -47,7 +47,7 @@ activityButton.addEventListener('click', displayActivityData);
 
 
 function loadData () {
-    Promise.all([userDataList(), userHydrationList(), userSleepList()]).then(data => {
+    Promise.all([getData('users'), getData('hydration'), getData('sleep')]).then(data => {
         userData = data[0].userData
         userHydrationData = data[1].hydrationData
         userSleepData = data[2].sleepData
