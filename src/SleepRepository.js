@@ -92,11 +92,11 @@ class SleepRepository{
         });
         const index = dateSleep.findIndex(data => {
             return data.date === date
-          })
+        })
         const weekDate = dateSleep.slice((index - 6) , (index + 1))
           .map(data => {
             return data.date
-          })
+        })
         return weekDate;
     }
 
