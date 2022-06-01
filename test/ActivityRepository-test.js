@@ -26,4 +26,9 @@ describe('Activity Repository', () => {
   it('should display average minutes active per week', function () {
     expect(activity1.displayAvgMinutesActiveByWeek(1, "2019/06/21")).to.equal(159);
   });
+  it('should display if the user was able to reach their daily step goal', function () {
+    expect(activity1.displayStepGoalComparison(1, "2019/06/21", userData)).to.equal("You didn't reach your daily step goal");
+    expect(activity1.displayStepGoalComparison(1, "2019/06/20", userData)).to.equal("You reached your daily step goal");
+    expect(activity1.displayStepGoalComparison(8, "2019/06/15", userData)).to.equal("You reached your daily step goal");
+  });
 });

@@ -46,16 +46,29 @@ displayAvgMinutesActiveByWeek(id, date) {
         sum += minute
         return sum
     }, 0)
-    console.log(activity)
     return parseInt(average / 7);
 }
 
-
-
-
-
-
 // For a user, did they reach their step goal for a given day (specified by a date)?
+    displayStepGoalComparison(id, date, userData) {
+        const userStepGoal = userData.find(user => {
+            return user.id === id
+        }).dailyStepGoal
+        const userActivities = this.activity.filter((user) => {
+            return user.id === id;
+        })
+        const stepsPerDay = userActivities.find((user) => {
+            return user.date === date;
+        }).numSteps
+        if(stepsPerDay >= userStepGoal){
+            return "You reached your daily step goal"
+        } else {
+            return "You didn't reach your daily step goal"
+        }
+    }
+
+
+
 // For a user, find all the days where they exceeded their step goal
 // For a user, find their all-time stair climbing record
 // For all users, what is the average number of:
