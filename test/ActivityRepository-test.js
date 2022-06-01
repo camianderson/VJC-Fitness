@@ -37,4 +37,10 @@ describe('Activity Repository', () => {
   it('should display all users average stairs climbed for a specified date', function () {
     expect(activity1.displayAvgStairsClimbedForAllUsers("2019/06/15")).to.equal(29);
   });
+  it('should display all users average steps for a specified date', function () {
+    expect(activity1.displayAvgStepsForAllUsers("2019/06/15")).to.equal(7078);
+  });
+  it('should display all users average minutes active for a specified date', function () {
+    expect(activity1.displayAvgMinutesActiveForAllUsers("2019/06/15")).to.equal(100);
+  });
 })

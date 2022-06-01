@@ -6,47 +6,47 @@ class ActivityRepository {
         this.activity = data.map((userObj) => { return new Activity(userObj) });
     }
 
-displayMilesWalkedByDay(id, date, userData) {
-    const findUserStride = userData.find(user => {
-        return user.id === id
-    }).strideLength
-    const userStepsByDay = this.activity.filter((user) => {
-        return user.id === id;
-    })
-    const stepsPerDay = userStepsByDay.find((user) => {
-        return user.date === date;
-    }).numSteps
-    let average = stepsPerDay * findUserStride / 5280
-    return parseFloat(average.toFixed(1))
-}
+    displayMilesWalkedByDay(id, date, userData) {
+        const findUserStride = userData.find(user => {
+            return user.id === id
+        }).strideLength
+        const userStepsByDay = this.activity.filter((user) => {
+            return user.id === id;
+        })
+        const stepsPerDay = userStepsByDay.find((user) => {
+            return user.date === date;
+        }).numSteps
+        let average = stepsPerDay * findUserStride / 5280
+        return parseFloat(average.toFixed(1))
+    }
 
-displayMinutesActiveByDay(id, date) {
-    const userActivity = this.activity.filter((user) => {
-        return user.id === id;
-    })
-    const activityByDate = userActivity.find(user => {
-        return user.date === date;
-    }).minutesActive
-    return activityByDate
-}
+    displayMinutesActiveByDay(id, date) {
+        const userActivity = this.activity.filter((user) => {
+            return user.id === id;
+        })
+        const activityByDate = userActivity.find(user => {
+            return user.date === date;
+        }).minutesActive
+        return activityByDate
+    }
 
-displayAvgMinutesActiveByWeek(id, date) {
-    const activity = this.activity.filter((user) => {
-        return user.id === id;
-    });
-    const index = activity.findIndex(data => {
-        return data.date === date
-    })
-    const minutesActiveForReal = activity.slice((index - 6) , (index + 1))
-      .map(data => {
-        return data.minutesActive
-    })
-    const average = minutesActiveForReal.reduce((sum, minute) => {
-        sum += minute
-        return sum
-    }, 0)
-    return parseInt(average / 7);
-}
+    displayAvgMinutesActiveByWeek(id, date) {
+        const activity = this.activity.filter((user) => {
+            return user.id === id;
+        });
+        const index = activity.findIndex(data => {
+            return data.date === date
+        })
+        const minutesActiveForReal = activity.slice((index - 6) , (index + 1))
+        .map(data => {
+            return data.minutesActive
+        })
+        const average = minutesActiveForReal.reduce((sum, minute) => {
+            sum += minute
+            return sum
+        }, 0)
+        return parseInt(average / 7);
+    }
 
     displayStepGoalComparison(id, date, userData) {
         const userStepGoal = userData.find(user => {
@@ -65,8 +65,6 @@ displayAvgMinutesActiveByWeek(id, date) {
         }
     }
 
-// For a user, find all the days where they exceeded their step goal
-  
     displayStairClimbingRecord(id){
         const userActivities = this.activity.filter((user) => {
             return user.id === id;
@@ -80,8 +78,6 @@ displayAvgMinutesActiveByWeek(id, date) {
         return sortedStairClimbingData[0];
     }
 
-// For all users, what is the average number of:
-// stairs climbed for a specified date
     displayAvgStairsClimbedForAllUsers(date){
         const userActivities = this.activity.filter((user) => {
             return user.date === date;
@@ -93,13 +89,28 @@ displayAvgMinutesActiveByWeek(id, date) {
         return parseInt(totalFlightsOfStairs/userActivities.length)
     }
 
+    displayAvgStepsForAllUsers(date){
+        const userActivities = this.activity.filter((user) => {
+            return user.date === date;
+        })
+        const totalSteps = userActivities.reduce((sum, activity) => {
+            sum += activity.numSteps
+            return sum;
+        }, 0)
+        return parseInt(totalSteps/userActivities.length)
+    }
 
-// steps taken for a specific date
-// minutes active for a specific date
+    displayAvgMinutesActiveForAllUsers(date){
+        const userActivities = this.activity.filter((user) => {
+            return user.date === date;
+        })
+        const totalMinutesActive = userActivities.reduce((sum, activity) => {
+            sum += activity.minutesActive
+            return sum;
+        }, 0)
+        return parseInt(totalMinutesActive/userActivities.length)
+    }
 }
-
-
-
 
 
 
