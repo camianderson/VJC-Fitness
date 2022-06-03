@@ -281,6 +281,7 @@ function getSleepInput(){
     var hoursOfSleep = document.getElementById('hoursOfSleep').value;
     var qualityHoursOfSleep = document.getElementById('qualityHoursOfSleep').value;
     clearForm();
+    console.log(getActivityInput())
     return {
         userID: userId,
         date: date,
