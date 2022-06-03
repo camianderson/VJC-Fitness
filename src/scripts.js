@@ -59,8 +59,8 @@ waterButton.addEventListener('click', displayWaterData);
 sleepButton.addEventListener('click', displaySleepData);
 activityButton.addEventListener('click', displayActivityData);
 waterSubmitButton.addEventListener('click', getWaterInput);
-// sleepSubmitButton.addEventListener('click', )
-// activitySubmitButton.addEventListener('click', )
+sleepSubmitButton.addEventListener('click', getSleepInput);
+activitySubmitButton.addEventListener('click', getActivityInput);
 
 
 function loadData () {
@@ -267,21 +267,54 @@ function getWaterInput(){
     event.preventDefault();
     var selection = document.getElementById('userDropDown');
     var userId = parseInt(selection.options[selection.selectedIndex].value);
-    var date = document.getElementById('waterDate').value
-    var ounces = document.getElementById('waterOunces').value
+    var date = document.getElementById('waterDate').value;
+    var ounces = document.getElementById('waterOunces').value;
     clearForm();
-    return { userID: userId, date: date , numOunces: ounces }
+    return { userID: userId, date: date , numOunces: ounces };
 }
 
 function getSleepInput(){
-    
+    event.preventDefault();
+    var selection = document.getElementById('userDropDown');
+    var userId = parseInt(selection.options[selection.selectedIndex].value);
+    var date = document.getElementById('sleepDate').value;
+    var hoursOfSleep = document.getElementById('hoursOfSleep').value;
+    var qualityHoursOfSleep = document.getElementById('qualityHoursOfSleep').value;
+    clearForm();
+    return {
+        userID: userId,
+        date: date,
+        hoursSlept: hoursOfSleep,
+        sleepQuality: qualityHoursOfSleep
+        };
 }
 
 function getActivityInput(){
-    
+    event.preventDefault();
+    var selection = document.getElementById('userDropDown');
+    var userId = parseInt(selection.options[selection.selectedIndex].value);
+    var date = document.getElementById('activityDate').value;
+    var numberOfSteps = document.getElementById('numberOfSteps').value;
+    var minutesActive = document.getElementById('minutesActive').value;
+    var flightsOfStairs = document.getElementById('flightsOfStairs').value;
+    clearForm();
+    return {
+        "userID": userId,
+        "date": date,
+        "numSteps": numberOfSteps,
+        "minutesActive": minutesActive,
+        "flightsOfStairs": flightsOfStairs
+        };
 }
 
 function clearForm(){
     document.getElementById('waterDate').value = '';
     document.getElementById('waterOunces').value = '';
+    document.getElementById('sleepDate').value = '';
+    document.getElementById('hoursOfSleep').value = '';
+    document.getElementById('qualityHoursOfSleep').value = '';
+    document.getElementById('activityDate').value = '';
+    document.getElementById('numberOfSteps').value = '';
+    document.getElementById('minutesActive').value = '';
+    document.getElementById('flightsOfStairs').value = '';
 }
