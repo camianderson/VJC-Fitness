@@ -7,7 +7,7 @@ describe('Activity', () => {
     let activity2;
     beforeEach(() => {
       activity1 = new Activity(activityData[0]);
-      activity2 = new Activity(activityData[7])
+      activity2 = new Activity(activityData[14])
     })
       it('should be a function', function () {
         expect(Activity).to.be.a('function');
