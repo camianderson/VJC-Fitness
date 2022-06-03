@@ -38,4 +38,5 @@ describe('Activity', () => {
         expect(activity1.flightsOfStairs).to.equal(16);
         expect(activity2.flightsOfStairs).to.equal(31);
       });
+      
   })

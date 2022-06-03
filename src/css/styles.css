@@ -208,7 +208,7 @@ img {
 .chart-box {
   border: 2px inset rgba(64, 103, 147, 0.3);
   background-color: rgba(171, 174, 203, 0.6);
-  width: 50%;
+  width: 75%;
   height: 100%;
   display: flex;
   justify-content: center;

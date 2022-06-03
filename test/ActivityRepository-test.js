@@ -51,4 +51,20 @@ describe('Activity Repository', () => {
   it('should display all users average minutes active for a specified date', function () {
     expect(activity1.displayAvgMinutesActiveForAllUsers("2019/06/15")).to.equal(100);
   });
+  it('should display weekly activity', function(){
+    expect(activity1.displayWeeklyActivity(1, '2019/06/21')).to.be.a('array');
+    expect(activity1.displayWeeklyActivity(1, '2019/06/21')).to.deep.equal(['2019/06/15', '2019/06/16', '2019/06/17', '2019/06/18', '2019/06/19', '2019/06/20', '2019/06/21']);
+  });
+  it('should display weekly stairs climbed', function(){
+    expect(activity1.displayWeeklyStairs(1, '2019/06/21')).to.be.a('array');
+    expect(activity1.displayWeeklyStairs(1, '2019/06/21')).to.deep.equal([16, 10, 33, 32, 13, 18, 5]);
+  });
+  it('should display weekly step count', function(){
+    expect(activity1.displayWeeklySteps(1, '2019/06/21')).to.be.a('array');
+    expect(activity1.displayWeeklySteps(1, '2019/06/21')).to.deep.equal([3577, 4294, 7402, 3486, 11374, 14810, 2634]);
+  });
+  it('should display weekly minutes active', function(){
+    expect(activity1.displayWeeklyMinutesActive(1, '2019/06/21')).to.be.a('array');
+    expect(activity1.displayWeeklyMinutesActive(1, '2019/06/21')).to.deep.equal([140, 138, 116, 114, 213, 287, 107]);
+  });
 })
