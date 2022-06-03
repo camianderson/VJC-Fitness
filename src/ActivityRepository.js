@@ -132,6 +132,62 @@ class ActivityRepository {
         return parseInt(totalMinutesActive/userActivities.length)
     }
 
+    displayWeeklyActivity(id, date) {
+        const dateOfActivity = this.activity.filter((user) => {
+            return user.id === id;
+        });
+        const index = dateOfActivity.findIndex(data => {
+            return data.date === date
+        })
+        const weekDate = dateOfActivity.slice((index - 6) , (index + 1))
+          .map(data => {
+            return data.date
+        })
+        return weekDate;
+    }
+
+    displayWeeklyStairs(id, date) {
+        const dateOfStairs = this.activity.filter((user) => {
+            return user.id === id;
+        });
+        const index = dateOfStairs.findIndex(data => {
+            return data.date === date
+        })
+        const weeklyStairs = dateOfStairs.slice((index - 6) , (index + 1))
+          .map(data => {
+            return data.flightsOfStairs
+        })
+        return weeklyStairs;
+    }
+
+    displayWeeklySteps(id, date) {
+        const dateOfSteps = this.activity.filter((user) => {
+            return user.id === id;
+        });
+        const index = dateOfSteps.findIndex(data => {
+            return data.date === date
+        })
+        const weeklySteps = dateOfSteps.slice((index - 6) , (index + 1))
+          .map(data => {
+            return data.numSteps
+        })
+        return weeklySteps;
+    }
+
+    displayWeeklyMinutesActive(id, date) {
+        const dateOfMinutesActive = this.activity.filter((user) => {
+            return user.id === id;
+        });
+        const index = dateOfMinutesActive.findIndex(data => {
+            return data.date === date
+        })
+        const weeklyMinutesActive = dateOfMinutesActive.slice((index - 6) , (index + 1))
+          .map(data => {
+            return data.minutesActive
+        })
+        return weeklyMinutesActive;
+    }
+
 }
 
 

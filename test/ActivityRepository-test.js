@@ -51,4 +51,9 @@ describe('Activity Repository', () => {
   it('should display all users average minutes active for a specified date', function () {
     expect(activity1.displayAvgMinutesActiveForAllUsers("2019/06/15")).to.equal(100);
   });
+  it('should display activity by date', function(){
+    expect(activity1.displayWeeklyActivity(1, '2019/06/21')).to.be.a('array');
+    expect(activity1.displayWeeklyActivity(1, '2019/06/21')).to.deep.equal(['2019/06/15', '2019/06/16', '2019/06/17', '2019/06/18', '2019/06/19', '2019/06/20', '2019/06/21']);
+  });
+
 })
