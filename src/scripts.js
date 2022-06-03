@@ -49,13 +49,18 @@ var displayStairsBox = document.getElementById('stairsBox')
 var waterContainer = document.querySelector('#waterContainer');
 var sleepContainer = document.querySelector('#sleepContainer');
 var activityContainer = document.querySelector('#activityContainer');
-
+var waterSubmitButton = document.querySelector('#waterSubmitButton');
+var sleepSubmitButton = document.querySelector('#sleepSubmitButton');
+var activitySubmitButton = document.querySelector('#activitySubmitButton');
 
 // ****** event listeners ******
 window.addEventListener('load', loadData);
 waterButton.addEventListener('click', displayWaterData);
 sleepButton.addEventListener('click', displaySleepData);
 activityButton.addEventListener('click', displayActivityData);
+waterSubmitButton.addEventListener('click', getWaterInput);
+// sleepSubmitButton.addEventListener('click', )
+// activitySubmitButton.addEventListener('click', )
 
 
 function loadData () {
@@ -156,6 +161,7 @@ function chooseUser(userRepository, hydrationRepository, sleepRepository, activi
     var selection = document.getElementById('userDropDown');
     var userId = parseInt(selection.options[selection.selectedIndex].value);
     var user = userRepository.getUser(userId);
+    
     displayUserInfo(user, userRepository);
     displayActivityData(userId, '2020/01/21', activityRepository);
     displaySleepData(userId, '2020/01/22', sleepRepository);
@@ -255,4 +261,27 @@ function clearData(){
                                 \nQuality of Sleep:
                                 \nAverage Sleep Qualty of All Time:
                                 \nAverage Hours of Sleep of All Time:`;
+}
+
+function getWaterInput(){
+    event.preventDefault();
+    var selection = document.getElementById('userDropDown');
+    var userId = parseInt(selection.options[selection.selectedIndex].value);
+    var date = document.getElementById('waterDate').value
+    var ounces = document.getElementById('waterOunces').value
+    clearForm();
+    return { userID: userId, date: date , numOunces: ounces }
+}
+
+function getSleepInput(){
+    
+}
+
+function getActivityInput(){
+    
+}
+
+function clearForm(){
+    document.getElementById('waterDate').value = '';
+    document.getElementById('waterOunces').value = '';
 }
