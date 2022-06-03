@@ -27,6 +27,9 @@ var sleepRepository;
 var activityRepository;
 var waterChart = new Chart("waterChart", {type: "bar"})
 var sleepChart = new Chart("sleepChart", {type: "bar"})
+var stairsChart = new Chart("activityStairsChart", {type: "bar"})
+var stepsChart = new Chart("activityStepsChart", {type: "bar"})
+var minutesActiveChart = new Chart("activityMinutesChart", {type: "bar"})
 
 // ****** querySelectors ******
 var welcomeUser = document.querySelector('.welcome-user');
@@ -205,14 +208,17 @@ function displayActivityData(userId, formattedDate, activityRepository, userData
     waterContainer.classList.add("hidden");
     sleepContainer.classList.add("hidden");
     activityContainer.classList.remove("hidden");
-    displayStepsOnDashboard(userId, formattedDate)
-    displayMinutesActiveOnDashboard(userId, formattedDate)
-    displayMilesOnDashboard(userId, formattedDate)
-    displayStairsClimbedOnDashboard(userId, formattedDate)
-
-
-
-
+    displayStepsOnDashboard(userId, formattedDate);
+    displayMinutesActiveOnDashboard(userId, formattedDate);
+    displayMilesOnDashboard(userId, formattedDate);
+    displayStairsClimbedOnDashboard(userId, formattedDate);
+    const dateActivity = activityRepository.displayWeeklyActivity(userId, formattedDate);
+    const stairsData = activityRepository.displayWeeklyStairs(userId, formattedDate);
+    const stepsData = activityRepository.displayWeeklySteps(userId, formattedDate);
+    const minutesData = activityRepository.displayWeeklyMinutesActive(userId, formattedDate);
+    displayWeeklyStairsChart(stairsChart, dateActivity, stairsData);
+    displayWeeklyStepsChart(stepsChart, dateActivity, stepsData);
+    displayWeeklyMinutesActiveChart(minutesActiveChart, dateActivity, minutesData);
 
 
     // dailyResultSleep.innerText = `Hours Slept: ${dailySleepHours}
