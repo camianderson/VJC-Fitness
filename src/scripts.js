@@ -9,7 +9,7 @@ import UserRepository from './UserRepository';
 import HydrationRepository from './HydrationRepository';
 import SleepRepository from './SleepRepository';
 import ActivityRepository from './ActivityRepository';
-import {displayWeeklySleepChart, displayWeeklyWaterChart} from './Charts.js';
+import {displayWeeklySleepChart, displayWeeklyWaterChart, displayWeeklyStairsChart, displayWeeklyStepsChart, displayWeeklyMinutesActiveChart} from './Charts.js';
 import {getData} from './apiCalls';
 import datepicker from 'js-datepicker';
 import dateFormat from 'dateformat'
@@ -28,8 +28,8 @@ var activityRepository;
 var waterChart = new Chart("waterChart", {type: "bar"})
 var sleepChart = new Chart("sleepChart", {type: "bar"})
 var stairsChart = new Chart("activityStairsChart", {type: "bar"})
-var stepsChart = new Chart("activityStepsChart", {type: "bar"})
-var minutesActiveChart = new Chart("activityMinutesChart", {type: "bar"})
+// var stepsChart = new Chart("activityStepsChart", {type: "bar"})
+// var minutesActiveChart = new Chart("activityMinutesChart", {type: "bar"})
 
 // ****** querySelectors ******
 var welcomeUser = document.querySelector('.welcome-user');
@@ -41,6 +41,7 @@ var sleepButton = document.querySelector('#sleep-button');
 var activityButton = document.querySelector('#activity-button');
 var dailyResultWater = document.getElementById('user-ounce-for-day-result');
 var dailyResultSleep = document.getElementById('user-hours-for-day-result');
+// var dailyResultActivity = document.getElementById('user-activity-for-day-result');
 var displayStepsBox = document.getElementById('stepsBox')
 var displayMinutesBox = document.getElementById('minutesBox')
 var displayMilesBox = document.getElementById('milesBox')
@@ -67,7 +68,6 @@ function loadData () {
         hydrationRepository = new HydrationRepository(userHydrationData);
         sleepRepository = new SleepRepository(userSleepData);
         activityRepository = new ActivityRepository(userActivityData);
-
         generateDataOnChange(userRepository, hydrationRepository)
         displayWaterDataByDate(userRepository, hydrationRepository)
         displaySleepDataByDate(sleepRepository)
@@ -122,8 +122,8 @@ function displaySleepDataByDate(sleepRepository) {
 
 function displayActivityDataByDate(activityRepository) {
   datepicker('#date-picker-activity', {
-      minDate: new Date(2019, 5, 15),
-      maxDate: new Date(2020, 0, 22),
+    //   minDate: new Date(2019, 5, 15),
+    //   maxDate: new Date(2020, 0, 22),
       startDate: new Date(2020, 0, 22),
       formatter: (input, date, _instance) => {
           const newDate = dateFormat(date, "yyyy/mm/dd")
@@ -133,10 +133,10 @@ function displayActivityDataByDate(activityRepository) {
           var selection = document.getElementById('userDropDown');
           var userId = parseInt(selection.options[selection.selectedIndex].value);
           const formattedDate = dateFormat(date, "yyyy/mm/dd");
-          try{
+        //   try{
           displayActivityData(userId, formattedDate, activityRepository)}
-          catch{}
-      }
+        //   catch{}
+    //   }
   })
 }
 
@@ -157,6 +157,7 @@ function chooseUser(userRepository, hydrationRepository, sleepRepository, activi
     var userId = parseInt(selection.options[selection.selectedIndex].value);
     var user = userRepository.getUser(userId);
     displayUserInfo(user, userRepository);
+    // console.log(activityRepository)
     displayActivityData(userId, '2020/01/21', activityRepository);
     displaySleepData(userId, '2020/01/22', sleepRepository);
     displayWaterData(userId, '2020/01/22', hydrationRepository);
@@ -204,7 +205,7 @@ function displaySleepData(userId, formattedDate, sleepRepository) {
     catch{}
 }
 
-function displayActivityData(userId, formattedDate, activityRepository, userData) {
+function displayActivityData(userId, formattedDate, activityRepository) {
     waterContainer.classList.add("hidden");
     sleepContainer.classList.add("hidden");
     activityContainer.classList.remove("hidden");
@@ -212,28 +213,14 @@ function displayActivityData(userId, formattedDate, activityRepository, userData
     displayMinutesActiveOnDashboard(userId, formattedDate);
     displayMilesOnDashboard(userId, formattedDate);
     displayStairsClimbedOnDashboard(userId, formattedDate);
+    // console.log(activityRepository)
     const dateActivity = activityRepository.displayWeeklyActivity(userId, formattedDate);
     const stairsData = activityRepository.displayWeeklyStairs(userId, formattedDate);
     const stepsData = activityRepository.displayWeeklySteps(userId, formattedDate);
     const minutesData = activityRepository.displayWeeklyMinutesActive(userId, formattedDate);
     displayWeeklyStairsChart(stairsChart, dateActivity, stairsData);
-    displayWeeklyStepsChart(stepsChart, dateActivity, stepsData);
-    displayWeeklyMinutesActiveChart(minutesActiveChart, dateActivity, minutesData);
-
-
-    // dailyResultSleep.innerText = `Hours Slept: ${dailySleepHours}
-    //                                 Quality of Sleep: ${dailyQualityOfSleep}`
-    //     const dateSleep = sleepRepository.displaySleepWeek(userId, formattedDate)
-    //     const sHours = sleepRepository.displayWeekSleepHours(userId, formattedDate)
-    //     const sqHours = sleepRepository.displayWeekSleepQualityHours(userId, formattedDate)
-    //     displayWeeklySleepChart(sleepChart, dateSleep, sHours, sqHours)
-    //     avgDisplayBoxSleep.innerText = `Average Sleep Qualty of All Time: \n${sleepRepository.displayUserSleepQualityAllTime(userId)}
-    //                                     \nAverage Hours of Sleep of All Time: \n${sleepRepository.displayUserHoursSleepAllTime(userId)}`
-    //
-
-
-      // For a user, a weekly view of their step count, flights of stairs climbed, and minutes active
-
+    // displayWeeklyStepsChart(stepsChart, dateActivity, stepsData);
+    // displayWeeklyMinutesActiveChart(minutesActiveChart, dateActivity, minutesData);
 }
 
 function displayStepsOnDashboard(userId, formattedDate) {
