@@ -157,7 +157,6 @@ function chooseUser(userRepository, hydrationRepository, sleepRepository, activi
     var userId = parseInt(selection.options[selection.selectedIndex].value);
     var user = userRepository.getUser(userId);
     displayUserInfo(user, userRepository);
-    // console.log(activityRepository)
     displayActivityData(userId, '2020/01/21', activityRepository);
     displaySleepData(userId, '2020/01/22', sleepRepository);
     displayWaterData(userId, '2020/01/22', hydrationRepository);
@@ -185,7 +184,6 @@ function displayWaterData(userId, formattedDate, hydrationRepository) {
                                   \nAll-Time Daily Water Intake Average: 
                                   ${hydrationRepository.displayAllTimeAvgOunces(userId)}oz`
     displayWeeklyWaterChart(waterChart, dateIntake, ouncesIntake)
-    // avgDisplayBoxWater.innerText = `All-Time Daily Water Intake Average: ${hydrationRepository.displayAllTimeAvgOunces(userId)}oz`
 }
 
 function displaySleepData(userId, formattedDate, sleepRepository) {
