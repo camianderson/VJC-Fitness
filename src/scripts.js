@@ -49,13 +49,18 @@ var displayStairsBox = document.getElementById('stairsBox')
 var waterContainer = document.querySelector('#waterContainer');
 var sleepContainer = document.querySelector('#sleepContainer');
 var activityContainer = document.querySelector('#activityContainer');
-
+var waterSubmitButton = document.querySelector('#waterSubmitButton');
+var sleepSubmitButton = document.querySelector('#sleepSubmitButton');
+var activitySubmitButton = document.querySelector('#activitySubmitButton');
 
 // ****** event listeners ******
 window.addEventListener('load', loadData);
 waterButton.addEventListener('click', displayWaterData);
 sleepButton.addEventListener('click', displaySleepData);
 activityButton.addEventListener('click', displayActivityData);
+waterSubmitButton.addEventListener('click', getWaterInput);
+sleepSubmitButton.addEventListener('click', getSleepInput);
+activitySubmitButton.addEventListener('click', getActivityInput);
 
 
 function loadData () {
@@ -156,8 +161,8 @@ function chooseUser(userRepository, hydrationRepository, sleepRepository, activi
     var selection = document.getElementById('userDropDown');
     var userId = parseInt(selection.options[selection.selectedIndex].value);
     var user = userRepository.getUser(userId);
+    
     displayUserInfo(user, userRepository);
-    // console.log(activityRepository)
     displayActivityData(userId, '2020/01/21', activityRepository);
     displaySleepData(userId, '2020/01/22', sleepRepository);
     displayWaterData(userId, '2020/01/22', hydrationRepository);
@@ -181,9 +186,10 @@ function displayWaterData(userId, formattedDate, hydrationRepository) {
     const userOuncesForDate = hydrationRepository.displayDailyAvgOunces(userId, formattedDate)
     const ouncesIntake = hydrationRepository.displayWeekWaterIntake(userId, formattedDate)
     const dateIntake = hydrationRepository.displayWaterByDate(userId, formattedDate)
-    dailyResultWater.innerText = `\nOn This Date: \n${userOuncesForDate}oz`
+    dailyResultWater.innerText = `\nOn This Date: \n${userOuncesForDate}oz
+                                  \nAll-Time Daily Water Intake Average: 
+                                  ${hydrationRepository.displayAllTimeAvgOunces(userId)}oz`
     displayWeeklyWaterChart(waterChart, dateIntake, ouncesIntake)
-    avgDisplayBoxWater.innerText = `All-Time Daily Water Intake Average: ${hydrationRepository.displayAllTimeAvgOunces(userId)}oz`
 }
 
 function displaySleepData(userId, formattedDate, sleepRepository) {
@@ -193,14 +199,14 @@ function displaySleepData(userId, formattedDate, sleepRepository) {
     try{
         const dailySleepHours = sleepRepository.displayDailySleepHours(userId, formattedDate)
         const dailyQualityOfSleep = sleepRepository.displaySleepQualityByDate(userId, formattedDate)
-        dailyResultSleep.innerText = `Hours Slept: ${dailySleepHours}
-                                    Quality of Sleep: ${dailyQualityOfSleep}`
+        dailyResultSleep.innerText = `Hours Slept: ${dailySleepHours}\n
+                                    Quality of Sleep: ${dailyQualityOfSleep} hours\n
+                                    Average Sleep Qualty of All Time: \n${sleepRepository.displayUserSleepQualityAllTime(userId)} hours
+                                    \nAverage Hours of Sleep of All Time: \n${sleepRepository.displayUserHoursSleepAllTime(userId)}`
         const dateSleep = sleepRepository.displaySleepWeek(userId, formattedDate)
         const sHours = sleepRepository.displayWeekSleepHours(userId, formattedDate)
         const sqHours = sleepRepository.displayWeekSleepQualityHours(userId, formattedDate)
         displayWeeklySleepChart(sleepChart, dateSleep, sHours, sqHours)
-        avgDisplayBoxSleep.innerText = `Average Sleep Qualty of All Time: \n${sleepRepository.displayUserSleepQualityAllTime(userId)}
-                                        \nAverage Hours of Sleep of All Time: \n${sleepRepository.displayUserHoursSleepAllTime(userId)}`
     }
     catch{}
 }
@@ -249,10 +255,67 @@ function displayStairsClimbedOnDashboard(userId, formattedDate) {
 function clearData(){
     // waterChart.clear();
     // sleepChart.clear();
-    dailyResultWater.innerText = '';
-    avgDisplayBoxWater.innerText = `All-Time Daily Water Intake Average:`;
-    dailyResultSleep.innerText = '';
-    avgDisplayBoxSleep.innerText = `Average Sleep Qualty of All Time:
-                                    \nAverage Hours of Sleep of All Time:`;
+    dailyResultWater.innerText = `On This Date:
+                                  \nAll-Time Daily Water Intake Average:`;
+    dailyResultSleep.innerText = `Hours Slept:
+                                \nQuality of Sleep:
+                                \nAverage Sleep Qualty of All Time:
+                                \nAverage Hours of Sleep of All Time:`;
+}
 
+function getWaterInput(){
+    event.preventDefault();
+    var selection = document.getElementById('userDropDown');
+    var userId = parseInt(selection.options[selection.selectedIndex].value);
+    var date = document.getElementById('waterDate').value;
+    var ounces = document.getElementById('waterOunces').value;
+    clearForm();
+    return { userID: userId, date: date , numOunces: ounces };
+}
+
+function getSleepInput(){
+    event.preventDefault();
+    var selection = document.getElementById('userDropDown');
+    var userId = parseInt(selection.options[selection.selectedIndex].value);
+    var date = document.getElementById('sleepDate').value;
+    var hoursOfSleep = document.getElementById('hoursOfSleep').value;
+    var qualityHoursOfSleep = document.getElementById('qualityHoursOfSleep').value;
+    clearForm();
+    console.log(getActivityInput())
+    return {
+        userID: userId,
+        date: date,
+        hoursSlept: hoursOfSleep,
+        sleepQuality: qualityHoursOfSleep
+        };
+}
+
+function getActivityInput(){
+    event.preventDefault();
+    var selection = document.getElementById('userDropDown');
+    var userId = parseInt(selection.options[selection.selectedIndex].value);
+    var date = document.getElementById('activityDate').value;
+    var numberOfSteps = document.getElementById('numberOfSteps').value;
+    var minutesActive = document.getElementById('minutesActive').value;
+    var flightsOfStairs = document.getElementById('flightsOfStairs').value;
+    clearForm();
+    return {
+        "userID": userId,
+        "date": date,
+        "numSteps": numberOfSteps,
+        "minutesActive": minutesActive,
+        "flightsOfStairs": flightsOfStairs
+        };
+}
+
+function clearForm(){
+    document.getElementById('waterDate').value = '';
+    document.getElementById('waterOunces').value = '';
+    document.getElementById('sleepDate').value = '';
+    document.getElementById('hoursOfSleep').value = '';
+    document.getElementById('qualityHoursOfSleep').value = '';
+    document.getElementById('activityDate').value = '';
+    document.getElementById('numberOfSteps').value = '';
+    document.getElementById('minutesActive').value = '';
+    document.getElementById('flightsOfStairs').value = '';
 }
