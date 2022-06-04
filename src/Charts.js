@@ -79,7 +79,7 @@ export function displayWeeklyStairsChart(chart, date, weeklyStairs) {
 }
 
 export function displayWeeklyStepsChart(chart, date, numSteps) {
-    var barColors = ["steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue",];
+    var barColors = ["cadetblue", "cadetblue", "cadetblue", "cadetblue", "cadetblue", "cadetblue", "cadetblue",];
     chart.data.labels = date;
     chart.data.datasets = [{
         label: "Weekly Steps Walked",
@@ -99,7 +99,7 @@ export function displayWeeklyStepsChart(chart, date, numSteps) {
 }
 
 export function displayWeeklyMinutesActiveChart(chart, date, minutesActive) {
-    var barColors = ["steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue",];
+    var barColors = ["LightSeaGreen", "LightSeaGreen", "LightSeaGreen", "LightSeaGreen", "LightSeaGreen", "LightSeaGreen", "LightSeaGreen",];
     chart.data.labels = date;
     chart.data.datasets = [{
         label: "Weekly Minutes Active",

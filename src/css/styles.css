@@ -27,7 +27,7 @@ p {
 }
 
 canvas {
-  width: 650px; 
+  width: 650px;
   height: 450px
 }
 
@@ -208,10 +208,16 @@ img {
 .chart-box {
   border: 2px inset rgba(64, 103, 147, 0.3);
   background-color: rgba(171, 174, 203, 0.6);
-  width: 75%;
+  width: 95%;
   height: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.category-chart {
+  display: flex;
+  flex-direction: center;
   align-items: center;
 }
 
@@ -251,7 +257,7 @@ img {
     height: 80%;
   }
 
-  .water-img:hover, 
+  .water-img:hover,
   .sleep-img:hover,
   .activity-img:hover {
     cursor: pointer;
