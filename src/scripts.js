@@ -55,9 +55,6 @@ var activitySubmitButton = document.querySelector('#activitySubmitButton');
 
 // ****** event listeners ******
 window.addEventListener('load', loadData);
-// waterButton.addEventListener('click', displayWaterData);
-// sleepButton.addEventListener('click', displaySleepData);
-// activityButton.addEventListener('click', displayActivityData);
 waterButton.addEventListener('click', showWaterBox);
 sleepButton.addEventListener('click', showSleepBox);
 activityButton.addEventListener('click', showActivityBox);
@@ -93,8 +90,6 @@ function loadData () {
         sleepRepository = new SleepRepository(userSleepData);
         activityRepository = new ActivityRepository(userActivityData);
         generateDataOnChange(userRepository, hydrationRepository, sleepRepository, activityRepository)
-        // didn't pass sleep/activity repository through generateDataOnChange. That took care of one of our errors!
-        // Still trying to figure out why activity data isn't displaying.
         displayWaterDataByDate(userRepository, hydrationRepository)
         displaySleepDataByDate(sleepRepository)
         displayActivityDataByDate(activityRepository)
@@ -127,8 +122,6 @@ function generateDataOnChange(userRepository, hydrationRepository, sleepReposito
 function displayWaterDataByDate(userRepository, hydrationRepository) {
   displayDropDownInfo(userRepository.users);
   datepicker('#date-picker-water', {
-      // minDate: new Date(2019, 5, 15),
-      // maxDate: new Date(2020, 0, 22),
       startDate: new Date(2020, 0, 22),
       formatter: (input, date, _instance) => {
           const newDate = dateFormat(date, "yyyy/mm/dd")
@@ -145,8 +138,6 @@ function displayWaterDataByDate(userRepository, hydrationRepository) {
 
 function displaySleepDataByDate(sleepRepository) {
   datepicker('#date-picker-sleep', {
-      // minDate: new Date(2019, 5, 15),
-      // maxDate: new Date(2020, 0, 22),
       startDate: new Date(2020, 0, 22),
       formatter: (input, date, _instance) => {
           const newDate = dateFormat(date, "yyyy/mm/dd")
@@ -165,8 +156,6 @@ function displaySleepDataByDate(sleepRepository) {
 
 function displayActivityDataByDate(activityRepository) {
   datepicker('#date-picker-activity', {
-    //   minDate: new Date(2019, 5, 15),
-    //   maxDate: new Date(2020, 0, 22),
       startDate: new Date(2020, 0, 22),
       formatter: (input, date, _instance) => {
           const newDate = dateFormat(date, "yyyy/mm/dd")
@@ -176,10 +165,7 @@ function displayActivityDataByDate(activityRepository) {
           var selection = document.getElementById('userDropDown');
           var userId = parseInt(selection.options[selection.selectedIndex].value);
           const formattedDate = dateFormat(date, "yyyy/mm/dd");
-        //   try{
           displayActivityData(userId, formattedDate, activityRepository)}
-        //   catch{}
-    //   }
   })
 }
 
@@ -224,9 +210,6 @@ function showWaterBox() {
 }
 
 function displayWaterData(userId, formattedDate, hydrationRepository) {
-    // waterContainer.classList.remove("hidden");
-    // activityContainer.classList.add("hidden");
-    // sleepContainer.classList.add("hidden");
     const userOuncesForDate = hydrationRepository.displayDailyAvgOunces(userId, formattedDate)
     const ouncesIntake = hydrationRepository.displayWeekWaterIntake(userId, formattedDate)
     const dateIntake = hydrationRepository.displayWaterByDate(userId, formattedDate)
@@ -243,9 +226,6 @@ function showSleepBox() {
 }
 
 function displaySleepData(userId, formattedDate, sleepRepository) {
-    // waterContainer.classList.add("hidden");
-    // activityContainer.classList.add("hidden");
-    // sleepContainer.classList.remove("hidden");
     try{
         const dailySleepHours = sleepRepository.displayDailySleepHours(userId, formattedDate)
         const dailyQualityOfSleep = sleepRepository.displaySleepQualityByDate(userId, formattedDate)
@@ -268,9 +248,6 @@ function showActivityBox() {
 }
 
 function displayActivityData(userId, formattedDate, activityRepository) {
-    // waterContainer.classList.add("hidden");
-    // sleepContainer.classList.add("hidden");
-    // activityContainer.classList.remove("hidden");
     displayStepsOnDashboard(userId, formattedDate);
     displayMinutesActiveOnDashboard(userId, formattedDate);
     displayMilesOnDashboard(userId, formattedDate);
@@ -308,8 +285,6 @@ function displayStairsClimbedOnDashboard(userId, formattedDate) {
 }
 
 function clearData(){
-    // waterChart.clear();
-    // sleepChart.clear();
     dailyResultWater.innerText = `On This Date:
                                   \nAll-Time Daily Water Intake Average:`;
     dailyResultSleep.innerText = `Hours Slept:
