@@ -35,9 +35,17 @@ input {
   text-align: center;
 }
 
+label {
+  font-size: 13px;
+}
+
 img {
   margin: 0;
   padding: 0;
+}
+
+button {
+  filter: drop-shadow(5px 5px 5px #686767);
 }
 
 .top-section {
@@ -152,6 +160,7 @@ img {
 .activity-img,
 .water-img,
 .sleep-img {
+  filter: drop-shadow(5px 5px 5px #171717);
   height: 80px;
   padding: 5px;
 }
@@ -263,6 +272,14 @@ img {
     cursor: pointer;
     filter: invert(100%);
   }
+
+  .data-input {
+    font-size: 15px;
+  }
+
+  /* .history-display {
+    font-size: 14px;
+  } */
 
   .hidden {
     display: none;
