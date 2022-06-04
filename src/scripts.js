@@ -55,9 +55,13 @@ var activitySubmitButton = document.querySelector('#activitySubmitButton');
 
 // ****** event listeners ******
 window.addEventListener('load', loadData);
-waterButton.addEventListener('click', displayWaterData);
-sleepButton.addEventListener('click', displaySleepData);
-activityButton.addEventListener('click', displayActivityData);
+// waterButton.addEventListener('click', displayWaterData);
+// sleepButton.addEventListener('click', displaySleepData);
+// activityButton.addEventListener('click', displayActivityData);
+waterButton.addEventListener('click', showWaterBox);
+sleepButton.addEventListener('click', showSleepBox);
+activityButton.addEventListener('click', showActivityBox);
+
 // waterSubmitButton.addEventListener('click', postData('http://localhost:3001/api/v1/hydration', getWaterInput(e)));
 sleepSubmitButton.addEventListener('submit', () => {
   event.preventDefault();
@@ -88,7 +92,9 @@ function loadData () {
         hydrationRepository = new HydrationRepository(userHydrationData);
         sleepRepository = new SleepRepository(userSleepData);
         activityRepository = new ActivityRepository(userActivityData);
-        generateDataOnChange(userRepository, hydrationRepository)
+        generateDataOnChange(userRepository, hydrationRepository, sleepRepository, activityRepository)
+        // didn't pass sleep/activity repository through generateDataOnChange. That took care of one of our errors!
+        // Still trying to figure out why activity data isn't displaying.
         displayWaterDataByDate(userRepository, hydrationRepository)
         displaySleepDataByDate(sleepRepository)
         displayActivityDataByDate(activityRepository)
@@ -211,10 +217,16 @@ function displayUserInfo(user, userRepository) {
         Average Users Step Goal: ${userRepository.displayAverageStepGoal()}`
 };
 
-function displayWaterData(userId, formattedDate, hydrationRepository) {
+function showWaterBox() {
     waterContainer.classList.remove("hidden");
     activityContainer.classList.add("hidden");
     sleepContainer.classList.add("hidden");
+}
+
+function displayWaterData(userId, formattedDate, hydrationRepository) {
+    // waterContainer.classList.remove("hidden");
+    // activityContainer.classList.add("hidden");
+    // sleepContainer.classList.add("hidden");
     const userOuncesForDate = hydrationRepository.displayDailyAvgOunces(userId, formattedDate)
     const ouncesIntake = hydrationRepository.displayWeekWaterIntake(userId, formattedDate)
     const dateIntake = hydrationRepository.displayWaterByDate(userId, formattedDate)
@@ -224,10 +236,16 @@ function displayWaterData(userId, formattedDate, hydrationRepository) {
     displayWeeklyWaterChart(waterChart, dateIntake, ouncesIntake)
 }
 
-function displaySleepData(userId, formattedDate, sleepRepository) {
+function showSleepBox() {
     waterContainer.classList.add("hidden");
     activityContainer.classList.add("hidden");
     sleepContainer.classList.remove("hidden");
+}
+
+function displaySleepData(userId, formattedDate, sleepRepository) {
+    // waterContainer.classList.add("hidden");
+    // activityContainer.classList.add("hidden");
+    // sleepContainer.classList.remove("hidden");
     try{
         const dailySleepHours = sleepRepository.displayDailySleepHours(userId, formattedDate)
         const dailyQualityOfSleep = sleepRepository.displaySleepQualityByDate(userId, formattedDate)
@@ -243,15 +261,20 @@ function displaySleepData(userId, formattedDate, sleepRepository) {
     catch{}
 }
 
-function displayActivityData(userId, formattedDate, activityRepository) {
+function showActivityBox() {
     waterContainer.classList.add("hidden");
-    sleepContainer.classList.add("hidden");
     activityContainer.classList.remove("hidden");
+    sleepContainer.classList.add("hidden");
+}
+
+function displayActivityData(userId, formattedDate, activityRepository) {
+    // waterContainer.classList.add("hidden");
+    // sleepContainer.classList.add("hidden");
+    // activityContainer.classList.remove("hidden");
     displayStepsOnDashboard(userId, formattedDate);
     displayMinutesActiveOnDashboard(userId, formattedDate);
     displayMilesOnDashboard(userId, formattedDate);
     displayStairsClimbedOnDashboard(userId, formattedDate);
-    // console.log(activityRepository)
     const dateActivity = activityRepository.displayWeeklyActivity(userId, formattedDate);
     const stairsData = activityRepository.displayWeeklyStairs(userId, formattedDate);
     const stepsData = activityRepository.displayWeeklySteps(userId, formattedDate);
