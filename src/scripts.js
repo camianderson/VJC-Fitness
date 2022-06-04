@@ -28,8 +28,8 @@ var activityRepository;
 var waterChart = new Chart("waterChart", {type: "bar"})
 var sleepChart = new Chart("sleepChart", {type: "bar"})
 var stairsChart = new Chart("activityStairsChart", {type: "bar"})
-// var stepsChart = new Chart("activityStepsChart", {type: "bar"})
-// var minutesActiveChart = new Chart("activityMinutesChart", {type: "bar"})
+var stepsChart = new Chart("activityStepsChart", {type: "bar"})
+var minutesActiveChart = new Chart("activityMinutesChart", {type: "bar"})
 
 // ****** querySelectors ******
 var welcomeUser = document.querySelector('.welcome-user');
@@ -63,7 +63,7 @@ sleepButton.addEventListener('click', showSleepBox);
 activityButton.addEventListener('click', showActivityBox);
 
 // waterSubmitButton.addEventListener('click', postData('http://localhost:3001/api/v1/hydration', getWaterInput(e)));
-sleepSubmitButton.addEventListener('submit', () => {
+sleepSubmitButton.addEventListener('submit', (event) => {
   event.preventDefault();
   var selection = document.getElementById('userDropDown');
   var userId = parseInt(selection.options[selection.selectedIndex].value);
@@ -280,8 +280,8 @@ function displayActivityData(userId, formattedDate, activityRepository) {
     const stepsData = activityRepository.displayWeeklySteps(userId, formattedDate);
     const minutesData = activityRepository.displayWeeklyMinutesActive(userId, formattedDate);
     displayWeeklyStairsChart(stairsChart, dateActivity, stairsData);
-    // displayWeeklyStepsChart(stepsChart, dateActivity, stepsData);
-    // displayWeeklyMinutesActiveChart(minutesActiveChart, dateActivity, minutesData);
+    displayWeeklyStepsChart(stepsChart, dateActivity, stepsData);
+    displayWeeklyMinutesActiveChart(minutesActiveChart, dateActivity, minutesData);
 }
 
 function displayStepsOnDashboard(userId, formattedDate) {

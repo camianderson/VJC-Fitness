@@ -77,21 +77,6 @@ img {
   align-items: center;
 }
 
-.water-chart {
-  width: 150%;
-  height: 150%;
-}
-
-.sleep-chart {
-  width: 200px;
-  height: 200px;
-}
-
-.activity-chart {
-  width: 100%;
-  height: 100%;
-}
-
 .recent-activity-title {
   text-align: center;
   text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
@@ -223,10 +208,16 @@ img {
 .chart-box {
   border: 2px inset rgba(64, 103, 147, 0.3);
   background-color: rgba(171, 174, 203, 0.6);
-  width: 75%;
+  width: 95%;
   height: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.category-chart {
+  display: flex;
+  flex-direction: center;
   align-items: center;
 }
 
