@@ -7,8 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="normalize.css">
-  <link rel="stylesheet" href="styles.css"> -->
   <link rel="stylesheet" href="datepicker.min.css">
   <title>VJC Fitness</title>
 </head>
@@ -48,9 +46,6 @@
           <p>Water</p>
         </div>
         <div class="stats-container">
-          <!-- <div class="img-box">
-            <img class="category-image" src="./images/water-glass.png">
-          </div> -->
           <div class="chart-box">
             <article class="category-chart" style="position: relative; height: 75%; width: 75%">
               <canvas class="water-chart" id="waterChart"></canvas>
@@ -80,12 +75,12 @@
           <p>Sleep</p>
         </div>
         <div class="stats-container">
-          <!-- <div class="img-box">
-            <img class="category-image" src="./images/sleeping.png">
-          </div> -->
           <div class="chart-box">
             <article class="category-chart" style="position: relative; height: 75%; width: 75%">
-                <canvas class="sleep-chart" id="sleepChart"></canvas>
+                <canvas class="sleep-chart" id="sleepHoursChart"></canvas>
+            </article>
+            <article class="category-chart" style="position: relative; height: 75%; width: 75%">
+                <canvas class="sleep-chart" id="sleepQualityChart"></canvas>
             </article>
           </div>
           <div class="average-box">
@@ -114,9 +109,6 @@
           <p>Activity</p>
         </div>
         <div class="stats-container">
-          <!-- <div class="img-box">
-            <img class="category-image" src="./images/sleeping.png">
-          </div> -->
           <div class="chart-box">
             <article class="category-chart" style="position: relative; height: 100%; width: 33%">
                 <canvas class="activity-chart" id="activityStairsChart"></canvas>
@@ -153,7 +145,6 @@
       </div>
     </div>
   </section>
-  <!-- <script src="datepicker.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   <script src="bundle.js"></script>
 </body>
