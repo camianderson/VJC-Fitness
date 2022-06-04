@@ -58,11 +58,26 @@ window.addEventListener('load', loadData);
 waterButton.addEventListener('click', displayWaterData);
 sleepButton.addEventListener('click', displaySleepData);
 activityButton.addEventListener('click', displayActivityData);
-waterSubmitButton.addEventListener('click', getWaterInput);
-sleepSubmitButton.addEventListener('click', getSleepInput);
-activitySubmitButton.addEventListener('click', getActivityInput);
+// waterSubmitButton.addEventListener('click', postData('http://localhost:3001/api/v1/hydration', getWaterInput(e)));
+sleepSubmitButton.addEventListener('submit', () => {
+  event.preventDefault();
+  var selection = document.getElementById('userDropDown');
+  var userId = parseInt(selection.options[selection.selectedIndex].value);
+  var date = document.getElementById('sleepDate').value;
+  var hoursOfSleep = document.getElementById('hoursOfSleep').value;
+  var qualityHoursOfSleep = document.getElementById('qualityHoursOfSleep').value;
+  clearForm();
+  var newSleepData = {
+      userID: userId,
+      date: date,
+      hoursSlept: hoursOfSleep,
+      sleepQuality: qualityHoursOfSleep
+      };
+  postData('http://localhost:3001/api/v1/sleep', newSleepData)
+});
+// activitySubmitButton.addEventListener('click', postData('http://localhost:3001/api/v1/activity', getActivityInput()));
 
-
+// ****** fetch GET ******
 function loadData () {
     Promise.all([getData('users'), getData('hydration'), getData('sleep'), getData('activity')]).then(data => {
         userData = data[0].userData;
@@ -78,6 +93,23 @@ function loadData () {
         displaySleepDataByDate(sleepRepository)
         displayActivityDataByDate(activityRepository)
     })
+}
+
+// ****** fetch POST ******
+function postData (url, newData) {
+  fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(newData),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('please fill in all the fields')
+    } else {
+      response.json()
+    }
+  })
 }
 
 function generateDataOnChange(userRepository, hydrationRepository, sleepRepository, activityRepository) {
@@ -161,7 +193,7 @@ function chooseUser(userRepository, hydrationRepository, sleepRepository, activi
     var selection = document.getElementById('userDropDown');
     var userId = parseInt(selection.options[selection.selectedIndex].value);
     var user = userRepository.getUser(userId);
-    
+
     displayUserInfo(user, userRepository);
     displayActivityData(userId, '2020/01/21', activityRepository);
     displaySleepData(userId, '2020/01/22', sleepRepository);
@@ -187,7 +219,7 @@ function displayWaterData(userId, formattedDate, hydrationRepository) {
     const ouncesIntake = hydrationRepository.displayWeekWaterIntake(userId, formattedDate)
     const dateIntake = hydrationRepository.displayWaterByDate(userId, formattedDate)
     dailyResultWater.innerText = `\nOn This Date: \n${userOuncesForDate}oz
-                                  \nAll-Time Daily Water Intake Average: 
+                                  \nAll-Time Daily Water Intake Average:
                                   ${hydrationRepository.displayAllTimeAvgOunces(userId)}oz`
     displayWeeklyWaterChart(waterChart, dateIntake, ouncesIntake)
 }
@@ -263,8 +295,8 @@ function clearData(){
                                 \nAverage Hours of Sleep of All Time:`;
 }
 
-function getWaterInput(){
-    event.preventDefault();
+function getWaterInput(e){
+    e.preventDefault();
     var selection = document.getElementById('userDropDown');
     var userId = parseInt(selection.options[selection.selectedIndex].value);
     var date = document.getElementById('waterDate').value;
@@ -272,23 +304,22 @@ function getWaterInput(){
     clearForm();
     return { userID: userId, date: date , numOunces: ounces };
 }
-
-function getSleepInput(){
-    event.preventDefault();
-    var selection = document.getElementById('userDropDown');
-    var userId = parseInt(selection.options[selection.selectedIndex].value);
-    var date = document.getElementById('sleepDate').value;
-    var hoursOfSleep = document.getElementById('hoursOfSleep').value;
-    var qualityHoursOfSleep = document.getElementById('qualityHoursOfSleep').value;
-    clearForm();
-    console.log(getActivityInput())
-    return {
-        userID: userId,
-        date: date,
-        hoursSlept: hoursOfSleep,
-        sleepQuality: qualityHoursOfSleep
-        };
-}
+//
+// function getSleepInput(){
+//     event.preventDefault();
+//     var selection = document.getElementById('userDropDown');
+//     var userId = parseInt(selection.options[selection.selectedIndex].value);
+//     var date = document.getElementById('sleepDate').value;
+//     var hoursOfSleep = document.getElementById('hoursOfSleep').value;
+//     var qualityHoursOfSleep = document.getElementById('qualityHoursOfSleep').value;
+//     clearForm();
+//     var newSleepData = {
+//         userID: userId,
+//         date: date,
+//         hoursSlept: hoursOfSleep,
+//         sleepQuality: qualityHoursOfSleep
+//         };
+// }
 
 function getActivityInput(){
     event.preventDefault();
