@@ -9,7 +9,7 @@ import UserRepository from './UserRepository';
 import HydrationRepository from './HydrationRepository';
 import SleepRepository from './SleepRepository';
 import ActivityRepository from './ActivityRepository';
-import {displayWeeklySleepChart, displayWeeklyWaterChart, displayWeeklyStairsChart, displayWeeklyStepsChart, displayWeeklyMinutesActiveChart} from './Charts.js';
+import {displayWeeklyWaterChart, displayWeeklySleepHoursChart, displayWeeklySleepQualityChart, displayWeeklyStairsChart, displayWeeklyStepsChart, displayWeeklyMinutesActiveChart} from './Charts.js';
 import {getData} from './apiCalls';
 import datepicker from 'js-datepicker';
 import dateFormat from 'dateformat'
@@ -26,7 +26,8 @@ var hydrationRepository;
 var sleepRepository;
 var activityRepository;
 var waterChart = new Chart("waterChart", {type: "bar"})
-var sleepChart = new Chart("sleepChart", {type: "bar"})
+var sleepHoursChart = new Chart("sleepHoursChart", {type: "bar"})
+var sleepQualityChart = new Chart("sleepQualityChart", {type: "bar"})
 var stairsChart = new Chart("activityStairsChart", {type: "bar"})
 var stepsChart = new Chart("activityStepsChart", {type: "bar"})
 var minutesActiveChart = new Chart("activityMinutesChart", {type: "bar"})
@@ -68,9 +69,9 @@ waterInputSubmitButton.addEventListener('click', postData('http://localhost:3001
     var ounces = document.getElementById('waterOunces').value;
     var dateObj = new Date(date)
     clearForm();
-    var newWaterData = { 
-        userID: userId, 
-        date: dateFormat(dateObj, 'yyyy/mm/dd'), 
+    var newWaterData = {
+        userID: userId,
+        date: dateFormat(dateObj, 'yyyy/mm/dd'),
         numOunces: parseFloat(ounces)};
 }));
 
@@ -275,7 +276,8 @@ function displaySleepData(userId, formattedDate, sleepRepository) {
         const dateSleep = sleepRepository.displaySleepWeek(userId, formattedDate)
         const sHours = sleepRepository.displayWeekSleepHours(userId, formattedDate)
         const sqHours = sleepRepository.displayWeekSleepQualityHours(userId, formattedDate)
-        displayWeeklySleepChart(sleepChart, dateSleep, sHours, sqHours)
+        displayWeeklySleepHoursChart(sleepHoursChart, dateSleep, sHours)
+        displayWeeklySleepQualityChart(sleepQualityChart, dateSleep, sqHours)
     }
     catch{}
 }
@@ -331,50 +333,6 @@ function clearData(){
                                 \nAverage Sleep Qualty of All Time:
                                 \nAverage Hours of Sleep of All Time:`;
 }
-
-// function getWaterInput(e){
-//     e.preventDefault();
-//     var selection = document.getElementById('userDropDown');
-//     var userId = parseInt(selection.options[selection.selectedIndex].value);
-//     var date = document.getElementById('waterDate').value;
-//     var ounces = document.getElementById('waterOunces').value;
-//     clearForm();
-//     return { userID: userId, date: date , numOunces: ounces };
-// }
-//
-// function getSleepInput(){
-//     event.preventDefault();
-//     var selection = document.getElementById('userDropDown');
-//     var userId = parseInt(selection.options[selection.selectedIndex].value);
-//     var date = document.getElementById('sleepDate').value;
-//     var hoursOfSleep = document.getElementById('hoursOfSleep').value;
-//     var qualityHoursOfSleep = document.getElementById('qualityHoursOfSleep').value;
-//     clearForm();
-//     var newSleepData = {
-//         userID: userId,
-//         date: date,
-//         hoursSlept: hoursOfSleep,
-//         sleepQuality: qualityHoursOfSleep
-//         };
-// }
-
-// function getActivityInput(){
-//     event.preventDefault();
-//     var selection = document.getElementById('userDropDown');
-//     var userId = parseInt(selection.options[selection.selectedIndex].value);
-//     var date = document.getElementById('activityDate').value;
-//     var numberOfSteps = document.getElementById('numberOfSteps').value;
-//     var minutesActive = document.getElementById('minutesActive').value;
-//     var flightsOfStairs = document.getElementById('flightsOfStairs').value;
-//     clearForm();
-//     return {
-//         "userID": userId,
-//         "date": date,
-//         "numSteps": numberOfSteps,
-//         "minutesActive": minutesActive,
-//         "flightsOfStairs": flightsOfStairs
-//         };
-// }
 
 function clearForm(){
     document.getElementById('waterDate').value = '';

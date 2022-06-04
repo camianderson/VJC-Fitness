@@ -1,40 +1,80 @@
+// 
+// export function displayWeeklySleepChart(chart, date, sHours, sqHours) {
+//     if(chart != null){
+//         chart.destroy()
+//     }
+//     var barColors = ['steelblue', 'steelblue', 'steelblue', 'steelblue', 'steelblue', 'steelblue', 'steelblue'];
+//     var barColors2 = ['cadetblue', 'cadetblue', 'cadetblue', 'cadetblue', 'cadetblue', 'cadetblue', 'cadetblue'];
+//     const data = {
+//         labels: date,
+//         datasets: [{
+//             label: 'Sleep Hours',
+//             backgroundColor: barColors,
+//             data: sHours
+//         },
+//         {
+//             label: 'Sleep Quality',
+//             backgroundColor: barColors2,
+//             data: sqHours
+//         }]
+//     }
+//     const config = {
+//         type: 'bar',
+//         data: data,
+//         options: {
+//             sqHours,
+//             sHours,
+//             legend: {
+//                 display: false
+//             },
+//             title: {
+//                 display: true,
+//                 text: 'Sleep Hours & Sleep Quality Per Day'
+//             }
+//         }
+//     }
+//
+//     var chart = new Chart("sleepChart", config)
+// }
 
-export function displayWeeklySleepChart(chart, date, sHours, sqHours) {
-    if(chart != null){
-        chart.destroy()
-    }
-    var barColors = ['steelblue', 'steelblue', 'steelblue', 'steelblue', 'steelblue', 'steelblue', 'steelblue'];
-    var barColors2 = ['cadetblue', 'cadetblue', 'cadetblue', 'cadetblue', 'cadetblue', 'cadetblue', 'cadetblue'];
-    const data = {
-        labels: date,
-        datasets: [{
-            label: 'Sleep Hours',
-            backgroundColor: barColors,
-            data: sHours
+export function displayWeeklySleepHoursChart(chart, date, sHours) {
+    var barColors = ["steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue",];
+    chart.data.labels = date;
+    chart.data.datasets = [{
+        label: 'Hours of Sleep Per Day',
+        fill: false,
+        backgroundColor: barColors,
+        data: sHours
+    }]
+    chart.options = {
+        legend: {
+            display: false
         },
-        {
-            label: 'Sleep Quality',
-            backgroundColor: barColors2,
-            data: sqHours
-        }]
-    }
-    const config = {
-        type: 'bar',
-        data: data,
-        options: {
-            sqHours,
-            sHours,
-            legend: {
-                display: false
-            },
-            title: {
-                display: true,
-                text: 'Sleep Hours & Sleep Quality Per Day'
-            }
+        title: {
+            display: true
         }
     }
+    chart.update()
+}
 
-    var chart = new Chart("sleepChart", config)
+export function displayWeeklySleepQualityChart(chart, date, sqHours) {
+    var barColors = ["steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue", "steelblue",];
+    chart.data.labels = date;
+    chart.data.datasets = [{
+        label: 'Hours of Quality Sleep Per Day',
+        fill: false,
+        backgroundColor: barColors,
+        data: sqHours
+    }]
+    chart.options = {
+        legend: {
+            display: false
+        },
+        title: {
+            display: true
+        }
+    }
+    chart.update()
 }
 
 export function displayWeeklyWaterChart(chart, date, ounces) {
