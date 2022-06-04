@@ -49,9 +49,9 @@ var displayStairsBox = document.getElementById('stairsBox')
 var waterContainer = document.querySelector('#waterContainer');
 var sleepContainer = document.querySelector('#sleepContainer');
 var activityContainer = document.querySelector('#activityContainer');
-var waterSubmitButton = document.querySelector('#waterSubmitButton');
-var sleepSubmitButton = document.querySelector('#sleepSubmitButton');
-var activitySubmitButton = document.querySelector('#activitySubmitButton');
+var waterInputSubmitButton = document.getElementById('waterSubmitButton');
+var sleepInputSubmitButton = document.getElementById('sleepSubmitButton');
+var activityInputSubmitButton = document.getElementById('activitySubmitButton');
 
 // ****** event listeners ******
 window.addEventListener('load', loadData);
@@ -59,24 +59,61 @@ waterButton.addEventListener('click', showWaterBox);
 sleepButton.addEventListener('click', showSleepBox);
 activityButton.addEventListener('click', showActivityBox);
 
-// waterSubmitButton.addEventListener('click', postData('http://localhost:3001/api/v1/hydration', getWaterInput(e)));
-sleepSubmitButton.addEventListener('submit', (event) => {
-  event.preventDefault();
+
+waterInputSubmitButton.addEventListener('click', postData('http://localhost:3001/api/v1/hydration', (e) => {
+    e.preventDefault();
+    var selection = document.getElementById('userDropDown');
+    var userId = parseInt(selection.options[selection.selectedIndex].value);
+    var date = document.getElementById('waterDate').value;
+    var ounces = document.getElementById('waterOunces').value;
+    var dateObj = new Date(date)
+    clearForm();
+    var newWaterData = { 
+        userID: userId, 
+        date: dateFormat(dateObj, 'yyyy/mm/dd'), 
+        numOunces: parseFloat(ounces)};
+}));
+
+sleepInputSubmitButton.addEventListener('submit', (e) => {
+  e.preventDefault();
   var selection = document.getElementById('userDropDown');
   var userId = parseInt(selection.options[selection.selectedIndex].value);
   var date = document.getElementById('sleepDate').value;
   var hoursOfSleep = document.getElementById('hoursOfSleep').value;
   var qualityHoursOfSleep = document.getElementById('qualityHoursOfSleep').value;
+  var dateObj = new Date(date)
   clearForm();
   var newSleepData = {
       userID: userId,
-      date: date,
-      hoursSlept: hoursOfSleep,
-      sleepQuality: qualityHoursOfSleep
+      date: dateFormat(dateObj, 'yyyy/mm/dd'),
+      hoursSlept: parseFloat(hoursOfSleep),
+      sleepQuality: parseFloat(qualityHoursOfSleep)
       };
   postData('http://localhost:3001/api/v1/sleep', newSleepData)
+//   loadData()
 });
-// activitySubmitButton.addEventListener('click', postData('http://localhost:3001/api/v1/activity', getActivityInput()));
+
+
+activityInputSubmitButton.addEventListener('submit', (e) => {
+    e.preventDefault()
+    var selection = document.getElementById('userDropDown');
+    var userId = parseInt(selection.options[selection.selectedIndex].value);
+    var date = document.getElementById('activityDate').value;
+    var numberOfSteps = document.getElementById('numberOfSteps').value;
+    var minutesActive = document.getElementById('minutesActive').value;
+    var flightsOfStairs = document.getElementById('flightsOfStairs').value;
+    var dateObj = new Date(date)
+    clearForm();
+    var newActivityData = {
+        "userID": userId,
+        "date": dateFormat(dateObj, 'yyyy/mm/dd'),
+        "numSteps": parseFloat(numberOfSteps),
+        "minutesActive": parseFloat(minutesActive),
+        "flightsOfStairs": parseFloat(flightsOfStairs)
+        };
+    postData('http://localhost:3001/api/v1/activity', newActivityData)
+    // loadData()
+})
 
 // ****** fetch GET ******
 function loadData () {
@@ -95,6 +132,8 @@ function loadData () {
         displayActivityDataByDate(activityRepository)
     })
 }
+
+
 
 // ****** fetch POST ******
 function postData (url, newData) {
@@ -293,15 +332,15 @@ function clearData(){
                                 \nAverage Hours of Sleep of All Time:`;
 }
 
-function getWaterInput(e){
-    e.preventDefault();
-    var selection = document.getElementById('userDropDown');
-    var userId = parseInt(selection.options[selection.selectedIndex].value);
-    var date = document.getElementById('waterDate').value;
-    var ounces = document.getElementById('waterOunces').value;
-    clearForm();
-    return { userID: userId, date: date , numOunces: ounces };
-}
+// function getWaterInput(e){
+//     e.preventDefault();
+//     var selection = document.getElementById('userDropDown');
+//     var userId = parseInt(selection.options[selection.selectedIndex].value);
+//     var date = document.getElementById('waterDate').value;
+//     var ounces = document.getElementById('waterOunces').value;
+//     clearForm();
+//     return { userID: userId, date: date , numOunces: ounces };
+// }
 //
 // function getSleepInput(){
 //     event.preventDefault();
@@ -319,23 +358,23 @@ function getWaterInput(e){
 //         };
 // }
 
-function getActivityInput(){
-    event.preventDefault();
-    var selection = document.getElementById('userDropDown');
-    var userId = parseInt(selection.options[selection.selectedIndex].value);
-    var date = document.getElementById('activityDate').value;
-    var numberOfSteps = document.getElementById('numberOfSteps').value;
-    var minutesActive = document.getElementById('minutesActive').value;
-    var flightsOfStairs = document.getElementById('flightsOfStairs').value;
-    clearForm();
-    return {
-        "userID": userId,
-        "date": date,
-        "numSteps": numberOfSteps,
-        "minutesActive": minutesActive,
-        "flightsOfStairs": flightsOfStairs
-        };
-}
+// function getActivityInput(){
+//     event.preventDefault();
+//     var selection = document.getElementById('userDropDown');
+//     var userId = parseInt(selection.options[selection.selectedIndex].value);
+//     var date = document.getElementById('activityDate').value;
+//     var numberOfSteps = document.getElementById('numberOfSteps').value;
+//     var minutesActive = document.getElementById('minutesActive').value;
+//     var flightsOfStairs = document.getElementById('flightsOfStairs').value;
+//     clearForm();
+//     return {
+//         "userID": userId,
+//         "date": date,
+//         "numSteps": numberOfSteps,
+//         "minutesActive": minutesActive,
+//         "flightsOfStairs": flightsOfStairs
+//         };
+// }
 
 function clearForm(){
     document.getElementById('waterDate').value = '';
