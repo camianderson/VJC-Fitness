@@ -23,18 +23,16 @@ var userRepository;
 var hydrationRepository;
 var sleepRepository;
 var activityRepository;
-var waterChart = new Chart("waterChart", {type: "bar"});
-var sleepHoursChart = new Chart("sleepHoursChart", {type: "bar"});
-var sleepQualityChart = new Chart("sleepQualityChart", {type: "bar"});
-var stairsChart = new Chart("activityStairsChart", {type: "bar"});
-var stepsChart = new Chart("activityStepsChart", {type: "bar"});
-var minutesActiveChart = new Chart("activityMinutesChart", {type: "bar"});
+var waterChart = new Chart('waterChart', {type: 'bar'});
+var sleepHoursChart = new Chart('sleepHoursChart', {type: 'bar'});
+var sleepQualityChart = new Chart('sleepQualityChart', {type: 'bar'});
+var stairsChart = new Chart('activityStairsChart', {type: 'bar'});
+var stepsChart = new Chart('activityStepsChart', {type: 'bar'});
+var minutesActiveChart = new Chart('activityMinutesChart', {type: 'bar'});
 
 // ****** querySelectors ******
 var welcomeUser = document.querySelector('.welcome-user');
 var userInfo = document.querySelector('.user-info');
-// var avgDisplayBoxWater = document.querySelector('#averageGoalWater');
-// var avgDisplayBoxSleep = document.querySelector('#averageGoalSleep');
 var waterButton = document.querySelector('#water-button');
 var sleepButton = document.querySelector('#sleep-button');
 var activityButton = document.querySelector('#activity-button');
@@ -92,7 +90,6 @@ sleepInputSubmitButton.addEventListener('submit', (e) => {
   postData('http://localhost:3001/api/v1/sleep', newSleepData);
 });
 
-
 activityInputSubmitButton.addEventListener('submit', (e) => {
     e.preventDefault();
     var selection = document.getElementById('userDropDown');
@@ -104,11 +101,11 @@ activityInputSubmitButton.addEventListener('submit', (e) => {
     var dateObj = new Date(date);
     clearForm();
     var newActivityData = {
-        "userID": userId,
-        "date": dateFormat(dateObj, 'yyyy/mm/dd'),
-        "numSteps": parseFloat(numberOfSteps),
-        "minutesActive": parseFloat(minutesActive),
-        "flightsOfStairs": parseFloat(flightsOfStairs)
+        userID: userId,
+        date: dateFormat(dateObj, 'yyyy/mm/dd'),
+        numSteps: parseFloat(numberOfSteps),
+        minutesActive: parseFloat(minutesActive),
+        flightsOfStairs: parseFloat(flightsOfStairs)
         };
     postData('http://localhost:3001/api/v1/activity', newActivityData);
 })
@@ -131,8 +128,6 @@ function loadData () {
     });
 }
 
-
-
 // ****** fetch POST ******
 function postData (url, newData) {
   fetch(url, {
@@ -152,7 +147,7 @@ function postData (url, newData) {
 
 function generateDataOnChange(userRepository, hydrationRepository, sleepRepository, activityRepository) {
   document.getElementById('userDropDown').onchange = () => {
-      chooseUser(userRepository, hydrationRepository, sleepRepository, activityRepository );
+      chooseUser(userRepository, hydrationRepository, sleepRepository, activityRepository);
   }
 }
 
@@ -161,13 +156,13 @@ function displayWaterDataByDate(userRepository, hydrationRepository) {
   datepicker('#date-picker-water', {
       startDate: new Date(2020, 0, 21),
       formatter: (input, date, _instance) => {
-          const newDate = dateFormat(date, "yyyy/mm/dd");
+          const newDate = dateFormat(date, 'yyyy/mm/dd');
           input.value = newDate;
       },
       onSelect: (_instance, date) => {
           var selection = document.getElementById('userDropDown');
           var userId = parseInt(selection.options[selection.selectedIndex].value);
-          const formattedDate = dateFormat(date, "yyyy/mm/dd");
+          const formattedDate = dateFormat(date, 'yyyy/mm/dd');
           displayWaterData(userId, formattedDate, hydrationRepository);
       }
   });
@@ -177,13 +172,13 @@ function displaySleepDataByDate(sleepRepository) {
   datepicker('#date-picker-sleep', {
       startDate: new Date(2020, 0, 21),
       formatter: (input, date, _instance) => {
-          const newDate = dateFormat(date, "yyyy/mm/dd");
+          const newDate = dateFormat(date, 'yyyy/mm/dd');
           input.value = newDate;
       },
       onSelect: (_instance, date) => {
           var selection = document.getElementById('userDropDown');
           var userId = parseInt(selection.options[selection.selectedIndex].value);
-          const formattedDate = dateFormat(date, "yyyy/mm/dd");
+          const formattedDate = dateFormat(date, 'yyyy/mm/dd');
           try{
           displaySleepData(userId, formattedDate, sleepRepository)}
           catch{}
@@ -195,13 +190,13 @@ function displayActivityDataByDate(activityRepository) {
   datepicker('#date-picker-activity', {
       startDate: new Date(2020, 0, 21),
       formatter: (input, date, _instance) => {
-          const newDate = dateFormat(date, "yyyy/mm/dd");
+          const newDate = dateFormat(date, 'yyyy/mm/dd');
           input.value = newDate;
       },
       onSelect: (_instance, date) => {
           var selection = document.getElementById('userDropDown');
           var userId = parseInt(selection.options[selection.selectedIndex].value);
-          const formattedDate = dateFormat(date, "yyyy/mm/dd");
+          const formattedDate = dateFormat(date, 'yyyy/mm/dd');
           displayActivityData(userId, formattedDate, activityRepository)}
   })
 }
@@ -241,9 +236,9 @@ function displayUserInfo(user, userRepository) {
 };
 
 function showWaterBox() {
-    waterContainer.classList.remove("hidden");
-    activityContainer.classList.add("hidden");
-    sleepContainer.classList.add("hidden");
+    waterContainer.classList.remove('hidden');
+    activityContainer.classList.add('hidden');
+    sleepContainer.classList.add('hidden');
 }
 
 function displayWaterData(userId, formattedDate, hydrationRepository) {
@@ -257,9 +252,9 @@ function displayWaterData(userId, formattedDate, hydrationRepository) {
 }
 
 function showSleepBox() {
-    waterContainer.classList.add("hidden");
-    activityContainer.classList.add("hidden");
-    sleepContainer.classList.remove("hidden");
+    waterContainer.classList.add('hidden');
+    activityContainer.classList.add('hidden');
+    sleepContainer.classList.remove('hidden');
 }
 
 function displaySleepData(userId, formattedDate, sleepRepository) {
@@ -280,9 +275,9 @@ function displaySleepData(userId, formattedDate, sleepRepository) {
 }
 
 function showActivityBox() {
-    waterContainer.classList.add("hidden");
-    activityContainer.classList.remove("hidden");
-    sleepContainer.classList.add("hidden");
+    waterContainer.classList.add('hidden');
+    activityContainer.classList.remove('hidden');
+    sleepContainer.classList.add('hidden');
 }
 
 function displayActivityData(userId, formattedDate, activityRepository) {
@@ -329,15 +324,6 @@ function clearData(){
     dailyResultWater.innerText = '';
     dailyResultSleep.innerText = '';
 }
-
-// function clearData(){
-//   dailyResultWater.innerText = `On This Date:
-//                                 \nAll-Time Daily Water Intake Average:`;
-//   dailyResultSleep.innerText = `Hours Slept:
-//                               \nQuality of Sleep:
-//                               \nAverage Sleep Qualty of All Time:
-//                               \nAverage Hours of Sleep of All Time:`;
-// }
 
 function clearForm(){
     document.getElementById('waterDate').value = '';

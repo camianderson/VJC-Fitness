@@ -10,11 +10,11 @@ class SleepRepository{
             return user.id === id;
         })
         const average = userSleep.reduce((sum, person) => {
-            sum += person.hoursSlept
-            return sum
+            sum += person.hoursSlept;
+            return sum;
         }, 0)
         const number = (average/userSleep.length).toFixed(1);
-        return parseFloat(number)
+        return parseFloat(number);
     }
 
     displayUserSleepQualityAllTime(id) {
@@ -22,11 +22,11 @@ class SleepRepository{
             return user.id === id;
         })
         const average = userSleep.reduce((sum, person) => {
-            sum += person.sleepQuality
-            return sum
+            sum += person.sleepQuality;
+            return sum;
         }, 0)
         const number = (average/userSleep.length).toFixed(1);
-        return parseFloat(number)
+        return parseFloat(number);
     }
 
     displayDailySleepHours(id, date) {
@@ -54,11 +54,11 @@ class SleepRepository{
             return user.id === id;
         });
         const index = dateSleepHours.findIndex(data => {
-            return data.date === date
+            return data.date === date;
         })
         const weekDate = dateSleepHours.slice((index - 6) , (index + 1))
         .map(data => {
-            return data.hoursSlept
+            return data.hoursSlept;
         })
         return weekDate;
     }
@@ -68,22 +68,22 @@ class SleepRepository{
             return user.id === id;
         });
         const index = dateSleepQualityHours.findIndex(data => {
-            return data.date === date
+            return data.date === date;
         })
         const weekDate = dateSleepQualityHours.slice((index - 6) , (index + 1))
         .map(data => {
-            return data.sleepQuality
+            return data.sleepQuality;
         })
         return weekDate;
     }
 
     displayAverageSleepQualityAllUser() {
         const average = this.sleep.reduce((sum, person) => {
-            sum += person.sleepQuality
-            return sum
+            sum += person.sleepQuality;
+            return sum;
         }, 0)
         const number = (average/this.sleep.length).toFixed(1);
-        return parseFloat(number)
+        return parseFloat(number);
     }
 
     displaySleepWeek(id, date) {
@@ -91,18 +91,14 @@ class SleepRepository{
             return user.id === id;
         });
         const index = dateSleep.findIndex(data => {
-            return data.date === date
+            return data.date === date;
         })
         const weekDate = dateSleep.slice((index - 6) , (index + 1))
           .map(data => {
-            return data.date
+            return data.date;
         })
         return weekDate;
     }
-
 };
-
-
-
 
 export default SleepRepository;
