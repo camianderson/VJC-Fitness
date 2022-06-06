@@ -20,6 +20,8 @@
 * Once you have cloned the repo, change into the directory and install the project dependencies, by running `npm install`.
 * Run `npm start` in the terminal, and copy the URL link (`http://localhost:8080/`) to see the HTML page 
 * To stop running the server, use Control + C in the terminal. (Closing the terminal without stopping the server first could allow the server to continue to run in the background and cause problems.)
+* Clone [this](https://github.com/turingschool-examples/fitlit-api) repo down, change into the directory and install the project dependencies, by running `npm install`.
+* Then run: `npm start` to be able to access the local API server used by the website. To stop the local API server from running in your terminal use command + c.
 * And now you're ready to start!
 
 ### How To Use: <a name="how"></a>
@@ -49,9 +51,7 @@ https://user-images.githubusercontent.com/98445902/169905451-e6f2a7ac-2ad1-4b5a-
 
 https://user-images.githubusercontent.com/98445902/169905906-72741416-3382-4d84-8a82-f077bb185c59.mov
 
-* You can move back and forth from the **Water** and **Sleep** information by simply clicking on the images on the bottom-left of the page!
-
-* The **Activity** section is currently under construction, but will be an added feature in the near future!
+* You can move back and forth from the **Water**, **Sleep** and **Activity** information by simply clicking on the images on the bottom-left of the page!
 
 <br>
 
@@ -122,8 +122,6 @@ Please click the dropdowns below to dive into the details of how we accomplished
 
 * The `displayWeekSleepQualityHours()` method was created to get the data for the users sleep quality each day over the course of a given week. This method runs the same as the `displayWeekSleepHours()` method, but grabs the sleep quality data. This method is then accessed in the `scripts.js` file within the `sleepDataDisplay()` to display the users sleep data on the page.
 
-<!-- * The `displayAverageSleepQualityAllUser()` method was created to get the data for the average sleep quality of all users. This method uses `.reduce()` to iterate through all the users and add the collective sleep quality. This value is then divided by the number of entries to get the average. This method is then accessed in the `scripts.js` file within the `sleepDataDisplay()` to display the users sleep data on the page. -->
-
 * Like the **HydrationRepository** we again use a chart to display the past weeks info of the date selected for a user. We created the `displayWeeklySleepChart()` method to not only grab the data for sleep hours, but also sleep quality, so that we could display the data side-by-side on the page. This method is then accessed in the `scripts.js` file within the `sleepDataDisplay()` to display the users sleep data on the page.
 
 * Alongside the **Sleep** and **SleepRepository** classes we also created **Sleep-test** and **SleepRepository-test** files to test our code and ensure it runs properly. Within these testing files we used **Mocha** and **Chai** languages to test our implementaion code.
@@ -133,13 +131,13 @@ Please click the dropdowns below to dive into the details of how we accomplished
 <details>
 <summary>DOM Manipulation Details</summary>
 
-* For the DOM manipulation, all the functionality was written in the `scripts.js` file, where we wrote display function that accessed the methods created within the **User**, **UserRepository**, **HydrationRepository**, and **SleepRepository** classes.
+* For the DOM manipulation, all the functionality was written in the `scripts.js` file, where we wrote display function that accessed the methods created within the **User**, **UserRepository**, **HydrationRepository**, **SleepRepository** and **ActivityRepository** classes.
 
 * We imported our data from the class files by using the `import` keyword, and ensuring the data was coming `from` the correct filepath.
 
 * We created several `querySelector`'s to access different elements within the **HTML** to be able to manipulate the DOM. 
 
-* The initial `loadData()` method we created to (as it says) load all the data on the page. Using the `Promise.all()` method we take in the `userDataList()`, `userHydrationList()`, & `userSleepList()` fetches from the `apiCalls.js` file, and then loads the data upon user and date selection from the page. Within the `loadData()` method, we also wrote in the `datepicker()` method which uses the `datepicker.js` file we downloaded from the NPM site to allow us to pick dates from a calendar to display that users data. An `addEventListener` was added to the `window` object of the page on load. 
+* The initial `loadData()` method we created to (as it says) load all the data on the page. Using the `Promise.all()` method we take in the `getData()` and pass a string as argument to attach in the end of the URL to fetch the proper API from the `apiCalls.js` file, and then loads the data upon user and date selection from the page. Within the `loadData()` method, we also wrote in the `datepicker()` method which uses the `datepicker.js` file we downloaded from the NPM site to allow us to pick dates from a calendar to display that users data. An `addEventListener` was added to the `window` object of the page on load. 
 
 * The `displayDropDownInfo()` method was writen to take in a user that is selcted from the dropdown on the page and display that users information, relating to ID, Name, Address, Email, Stride-Length, and Daily Step Goal. This method is accessed within the `loadData()` method to aid in the execution of the user data display. 
 
@@ -150,6 +148,8 @@ Please click the dropdowns below to dive into the details of how we accomplished
 * The `waterDataDisplay()` method takes in the users id, the date, and the hydration repository data, and accesses methods from the **HydrationRepository** class to display the users data concerning their water intake. 
 
 * The `sleepDataDisplay()` method takes in the same information as the `waterDataDisplay()`, and accesses methods from the **SleepRepository** class to dislay the users data concerning their sleep habits.
+   
+* The `activityDataDisplay()` method takes in the same information as the `waterDataDisplay()`, and accesses methods from the **ActivityRepository** class to dislay the users data concerning their activity habits.
 
 * A `clearData()` method was created to clear out the data from a previous user after a new user is selected. 
 
