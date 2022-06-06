@@ -33,8 +33,8 @@ var minutesActiveChart = new Chart("activityMinutesChart", {type: "bar"});
 // ****** querySelectors ******
 var welcomeUser = document.querySelector('.welcome-user');
 var userInfo = document.querySelector('.user-info');
-var avgDisplayBoxWater = document.querySelector('#averageGoalWater');
-var avgDisplayBoxSleep = document.querySelector('#averageGoalSleep');
+// var avgDisplayBoxWater = document.querySelector('#averageGoalWater');
+// var avgDisplayBoxSleep = document.querySelector('#averageGoalSleep');
 var waterButton = document.querySelector('#water-button');
 var sleepButton = document.querySelector('#sleep-button');
 var activityButton = document.querySelector('#activity-button');
@@ -248,8 +248,8 @@ function displayWaterData(userId, formattedDate, hydrationRepository) {
     const userOuncesForDate = hydrationRepository.displayDailyAvgOunces(userId, formattedDate);
     const ouncesIntake = hydrationRepository.displayWeekWaterIntake(userId, formattedDate);
     const dateIntake = hydrationRepository.displayWaterByDate(userId, formattedDate);
-    dailyResultWater.innerText = `\nOn This Date: \n${userOuncesForDate}oz
-                                  \nAll-Time Daily Water Intake Average:
+    dailyResultWater.innerText = `\nWater Intake: \n${userOuncesForDate}oz
+                                  \nDaily Intake Average\n(All-Time)
                                   ${hydrationRepository.displayAllTimeAvgOunces(userId)}oz`
     displayWeeklyWaterChart(waterChart, dateIntake, ouncesIntake);
 }
@@ -264,10 +264,10 @@ function displaySleepData(userId, formattedDate, sleepRepository) {
     try{
         const dailySleepHours = sleepRepository.displayDailySleepHours(userId, formattedDate);
         const dailyQualityOfSleep = sleepRepository.displaySleepQualityByDate(userId, formattedDate);
-        dailyResultSleep.innerText = `Hours Slept: ${dailySleepHours}\n
-                                    Quality of Sleep: ${dailyQualityOfSleep} hours\n
-                                    Average Sleep Qualty of All Time: \n${sleepRepository.displayUserSleepQualityAllTime(userId)} hours
-                                    \nAverage Hours of Sleep of All Time: \n${sleepRepository.displayUserHoursSleepAllTime(userId)}`
+        dailyResultSleep.innerText = `Hours Slept ${dailySleepHours}
+                                    Quality Hours of Sleep ${dailyQualityOfSleep}
+                                    \nAverage Hours (All-Time) \n${sleepRepository.displayUserHoursSleepAllTime(userId)}
+                                    Average Qualty Hours(All-Time) \n${sleepRepository.displayUserSleepQualityAllTime(userId)}`
         const dateSleep = sleepRepository.displaySleepWeek(userId, formattedDate);
         const sHours = sleepRepository.displayWeekSleepHours(userId, formattedDate);
         const sqHours = sleepRepository.displayWeekSleepQualityHours(userId, formattedDate);
@@ -300,34 +300,42 @@ function displayActivityData(userId, formattedDate, activityRepository) {
 function displayStepsOnDashboard(userId, formattedDate) {
   const dailyStepsPerDate = activityRepository.displayStepsWalkedByDay(userId, formattedDate);
   const averageStepsAllUsers = activityRepository.displayAvgStepsForAllUsers(formattedDate);
-  displayStepsBox.innerText = `Daily Steps: ${dailyStepsPerDate} \n Average Steps For All Users \n${averageStepsAllUsers}`
+  displayStepsBox.innerText = `Your Steps Count\n${dailyStepsPerDate}\n
+                              All Users Average\n(All-Time)\n${averageStepsAllUsers}`
 }
 
 function displayMinutesActiveOnDashboard(userId, formattedDate) {
   const dailyMinutesActive = activityRepository.displayMinutesActiveByDay(userId, formattedDate);
   const averageMinutesActive = activityRepository.displayAvgMinutesActiveForAllUsers(formattedDate);
-  displayMinutesBox.innerText = `Daily Minutes Active: ${dailyMinutesActive} \n Average Minutes Active For All Users \n${averageMinutesActive}`
+  displayMinutesBox.innerText = `Your Minutes Active\n${dailyMinutesActive}
+                                All Users Average\n(All-Time)\n${averageMinutesActive}`
 }
 
 function displayMilesOnDashboard(userId, formattedDate) {
   const dailyMilesWalked = activityRepository.displayMilesWalkedByDay(userId, formattedDate, userData);
-  displayMilesBox.innerText = `Daily Miles Walked: ${dailyMilesWalked}`
+  displayMilesBox.innerText = `Your Miles Walked\n${dailyMilesWalked}`
 }
 
 function displayStairsClimbedOnDashboard(userId, formattedDate) {
   const dailyStairsClimbed = activityRepository.displayStairsClimbedByDay(userId, formattedDate);
   const averageFlightsOfStairs = activityRepository.displayAvgStairsClimbedForAllUsers(formattedDate);
-  displayStairsBox.innerText = `Daily Stairs Climbed: ${dailyStairsClimbed} \n Average Stairs Climbed For All Users \n${averageFlightsOfStairs}`
+  displayStairsBox.innerText = `Your Stairs Climbed\n${dailyStairsClimbed}
+                                All Users Average\n(All-Time)\n${averageFlightsOfStairs}`
 }
 
 function clearData(){
-    dailyResultWater.innerText = `On This Date:
-                                  \nAll-Time Daily Water Intake Average:`;
-    dailyResultSleep.innerText = `Hours Slept:
-                                \nQuality of Sleep:
-                                \nAverage Sleep Qualty of All Time:
-                                \nAverage Hours of Sleep of All Time:`;
+    dailyResultWater.innerText = '';
+    dailyResultSleep.innerText = '';
 }
+
+// function clearData(){
+//   dailyResultWater.innerText = `On This Date:
+//                                 \nAll-Time Daily Water Intake Average:`;
+//   dailyResultSleep.innerText = `Hours Slept:
+//                               \nQuality of Sleep:
+//                               \nAverage Sleep Qualty of All Time:
+//                               \nAverage Hours of Sleep of All Time:`;
+// }
 
 function clearForm(){
     document.getElementById('waterDate').value = '';

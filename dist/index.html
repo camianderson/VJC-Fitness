@@ -27,7 +27,7 @@
     </div>
     <div class="user-box">
       <select class="user-dropdown" id="userDropDown">
-        <option disabled hidden selected>Select User</option>
+        <option disabled hidden selected>☞ Select a User to Begin ☜</option>
         <option value="default"></option>
       </select>
       <text class="user-info" id="userInfo"></text>
@@ -36,14 +36,17 @@
   <section class="bottom-section">
     <div class="icons-container">
       <img class="water-img" id="water-button" alt="water-button" src="./images/water.png">
+      <label class="icon-text-below">Hydration</label>
       <img class="sleep-img" id="sleep-button" alt="sleep-button" src="./images/sleep.png">
+      <label class="icon-text-below">Sleep</label>
       <img class="activity-img" id="activity-button" alt="activity-button" src="./images/activity.png" alt="Coming Soon">
+      <label class="icon-text-below">Activity</label>
     </div>
 
     <div class="bottom-container">
       <div class="category-container" id="waterContainer">
         <div class="title-container">
-          <p>Water</p>
+          <p>Hydration</p>
         </div>
         <div class="stats-container">
           <div class="chart-box">
@@ -55,16 +58,16 @@
             <article class="daily-goal" id="dailyGoal">
               <div>Display Hydration History</div>
               <input type="text" name="date-picker-water" placeholder="Select Date" id="date-picker-water">
-              <article id="user-ounce-for-day-result"></article>
+              <article class="history-display" id="user-ounce-for-day-result"></article>
             </article>
             <p class="data-input">Input New Data Below</p>
             <article class="average-goal" id="averageGoalWater">
               <form class="input-form" id="waterSubmitButton">
                 <label for="date">Select the Date</label><br>
-                <input type="date" placeholder="enter date" id="waterDate" required><br>
-                <label for="ounces-of-water">How many Ounces did you Drink?</label>
-                <input type ="number" placeholder="enter ounces of water" id="waterOunces" required><br>
-                <input type="submit" value="Submit">
+                <input type="date" id="waterDate" required><br>
+                <label for="ounces-of-water"></label><br>
+                <input type ="number" placeholder="Enter Water Drank" class="input-text" id="waterOunces" required><br><br><br>
+                <input type="submit" value="Submit" class="submit-button">
               </form>
             </article>
           </div>
@@ -76,10 +79,10 @@
         </div>
         <div class="stats-container">
           <div class="chart-box">
-            <article class="category-chart" style="position: relative; height: 75%; width: 75%">
+            <article class="category-chart" style="position: relative; height: 75%; width: 40%">
                 <canvas class="sleep-chart" id="sleepHoursChart"></canvas>
             </article>
-            <article class="category-chart" style="position: relative; height: 75%; width: 75%">
+            <article class="category-chart" style="position: relative; height: 75%; width: 40%">
                 <canvas class="sleep-chart" id="sleepQualityChart"></canvas>
             </article>
           </div>
@@ -87,18 +90,18 @@
             <article class="daily-goal" id="dailyGoal">
               <div>Display Sleep History</div>
               <input type="text" name="date-picker-sleep" placeholder="Select Date" id="date-picker-sleep">
-              <article id="user-hours-for-day-result"></article>
+              <article class="history-display" id="user-hours-for-day-result"></article>
             </article>
             <p class="data-input">Input New Data Below</p>
             <article class="average-goal" id="averageGoalSleep">
               <form id="sleepSubmitButton">
-                <label for="date"></label>
-                <input type="date" placeholder="enter date" id="sleepDate" required><br>
+                <label for="date">Select the Date</label>
+                <input type="date" placeholder="Enter Date" class="input-text" id="sleepDate" required><br><br>
                 <label for="hours of sleep"></label>
-                <input type ="number" placeholder="enter hours of sleep" id="hoursOfSleep" required><br>
+                <input type ="number" placeholder="Enter Hours of Sleep" class="input-text" id="hoursOfSleep" required><br>
                 <label for="quality hours of sleep"></label>
-                <input type ="number" placeholder="enter quality hours" id="qualityHoursOfSleep" required><br>
-                <input type="submit" value="Submit">
+                <input type ="number" placeholder="Enter Quality Hours" class="input-text" id="qualityHoursOfSleep" required><br><br>
+                <input type="submit" value="Submit" class="submit-button">
               </form>
             </article>
           </div>
@@ -124,20 +127,20 @@
             <article class="daily-goal" id="dailyGoal">
               <div>Display Activity History</div>
               <input type="text" name="date-picker-activity" placeholder="Select Date" id="date-picker-activity">
-              <article id="user-activity-for-day-result"></article>
+              <article class="history-display" id="user-activity-for-day-result"></article>
             </article>
             <p class="data-input">Input New Data Below</p>
             <article class="average-goal" id="averageGoalSleep">
               <form id="activitySubmitButton">
-                <label for="date"></label>
-                <input type="date" placeholder="enter date" id="activityDate" required><br>
+                <label for="date">Select the Date</label>
+                <input type="date" placeholder="Enter Date" id="activityDate" required><br>
                 <label for="number of steps"></label>
-                <input type="number" placeholder="enter number of steps" id="numberOfSteps" required><br>
+                <input type="number" placeholder="Enter Steps Taken" class="input-text" id="numberOfSteps" required><br>
                 <label for="minutes active"></label>
-                <input type="number" placeholder="enter minutes active" id="minutesActive" required><br>
+                <input type="number" placeholder="Enter Minutes Active" class="input-text" id="minutesActive" required><br>
                 <label for="flights of stairs"></label>
-                <input type="number" placeholder="enter flights of stairs" id="flightsOfStairs" required><br>
-                <input type="submit" value="Submit">
+                <input type="number" placeholder="Enter Stairs Climbed" class="input-text" id="flightsOfStairs" required><br><br>
+                <input type="submit" value="Submit" class="submit-button">
               </form>
             </article>
           </div>
