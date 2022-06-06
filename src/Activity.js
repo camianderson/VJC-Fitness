@@ -1,5 +1,3 @@
-
-
 class Activity {
     constructor(userActivityData) {
         this.id = userActivityData.userID;
@@ -9,9 +7,5 @@ class Activity {
         this.flightsOfStairs = userActivityData.flightsOfStairs;
     }
 }
-
-
-
-
 
 export default Activity;

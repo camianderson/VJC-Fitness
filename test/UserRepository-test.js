@@ -6,7 +6,7 @@ describe('User Repository', () => {
   let user1;
   beforeEach(() => {
     user1 = new UserRepository(userData);
-  })
+  });
   it('should be a function', function () {
     expect(UserRepository).to.be.a('function');
   });
@@ -28,5 +28,5 @@ describe('User Repository', () => {
   });
   it('should be able to return average step goal for all users', function(){
     expect(user1.displayAverageStepGoal(userData)).to.equal(6667)
-  })
+  });
 });

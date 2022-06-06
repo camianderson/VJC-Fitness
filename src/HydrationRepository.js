@@ -10,8 +10,8 @@ class HydrationRepository {
             return user.id === id;
         })
         const average = userAqua.reduce((sum, person) => {
-            sum += person.ounces
-            return sum
+            sum += person.ounces;
+            return sum;
         }, 0)
         return Math.round(average/userAqua.length);
     }
@@ -31,11 +31,11 @@ class HydrationRepository {
             return user.id === id;
         });
         const index = filteredFluidById.findIndex(data => {
-          return data.date === date
+          return data.date === date;
         })
         const week = filteredFluidById.slice((index - 6) , (index + 1))
           .map(data => {
-            return data.ounces
+            return data.ounces;
         })
         return week;
     }
@@ -45,11 +45,11 @@ class HydrationRepository {
             return user.id === id;
         });
         const index = dateWaterIntake.findIndex(data => {
-            return data.date === date
+            return data.date === date;
         })
         const weekDate = dateWaterIntake.slice((index - 6) , (index + 1))
           .map(data => {
-            return data.date
+            return data.date;
         })
         return weekDate;
     }

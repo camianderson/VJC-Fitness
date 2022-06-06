@@ -1,6 +1,5 @@
 import Activity from "./Activity";
 
-
 class ActivityRepository {
     constructor(data) {
         this.activity = data.map((userObj) => { return new Activity(userObj) });
@@ -29,7 +28,7 @@ class ActivityRepository {
 
     displayMilesWalkedByDay(id, date, userData) {
         const findUserStride = userData.find(user => {
-            return user.id === id
+            return user.id === id;
         }).strideLength
         const userStepsByDay = this.activity.filter((user) => {
             return user.id === id;
@@ -38,7 +37,7 @@ class ActivityRepository {
             return user.date === date;
         }).numSteps
         let average = stepsPerDay * findUserStride / 5280
-        return parseFloat(average.toFixed(1))
+        return parseFloat(average.toFixed(1));
     }
 
     displayMinutesActiveByDay(id, date) {
@@ -48,7 +47,7 @@ class ActivityRepository {
         const activityByDate = userActivity.find(user => {
             return user.date === date;
         }).minutesActive
-        return activityByDate
+        return activityByDate;
     }
 
     displayAvgMinutesActiveByWeek(id, date) {
@@ -56,22 +55,22 @@ class ActivityRepository {
             return user.id === id;
         });
         const index = activity.findIndex(data => {
-            return data.date === date
+            return data.date === date;
         })
         const minutesActiveForReal = activity.slice((index - 6) , (index + 1))
         .map(data => {
-            return data.minutesActive
+            return data.minutesActive;
         })
         const average = minutesActiveForReal.reduce((sum, minute) => {
-            sum += minute
-            return sum
+            sum += minute;
+            return sum;
         }, 0)
         return parseInt(average / 7);
     }
 
     displayStepGoalComparison(id, date, userData) {
         const userStepGoal = userData.find(user => {
-            return user.id === id
+            return user.id === id;
         }).dailyStepGoal
         const userActivities = this.activity.filter((user) => {
             return user.id === id;
@@ -80,9 +79,9 @@ class ActivityRepository {
             return user.date === date;
         }).numSteps
         if(stepsPerDay >= userStepGoal){
-            return "You reached your daily step goal"
+            return "You reached your daily step goal";
         } else {
-            return "You didn't reach your daily step goal"
+            return "You didn't reach your daily step goal";
         }
     }
 
@@ -104,10 +103,10 @@ class ActivityRepository {
             return user.date === date;
         })
         const totalFlightsOfStairs = userActivities.reduce((sum, activity) => {
-            sum += activity.flightsOfStairs
+            sum += activity.flightsOfStairs;
             return sum;
         }, 0)
-        return parseInt(totalFlightsOfStairs/userActivities.length)
+        return parseInt(totalFlightsOfStairs/userActivities.length);
     }
 
     displayAvgStepsForAllUsers(date){
@@ -115,10 +114,10 @@ class ActivityRepository {
             return user.date === date;
         })
         const totalSteps = userActivities.reduce((sum, activity) => {
-            sum += activity.numSteps
+            sum += activity.numSteps;
             return sum;
         }, 0)
-        return parseInt(totalSteps/userActivities.length)
+        return parseInt(totalSteps/userActivities.length);
     }
 
     displayAvgMinutesActiveForAllUsers(date){
@@ -126,10 +125,10 @@ class ActivityRepository {
             return user.date === date;
         })
         const totalMinutesActive = userActivities.reduce((sum, activity) => {
-            sum += activity.minutesActive
+            sum += activity.minutesActive;
             return sum;
         }, 0)
-        return parseInt(totalMinutesActive/userActivities.length)
+        return parseInt(totalMinutesActive/userActivities.length);
     }
 
     displayWeeklyActivity(id, date) {
@@ -137,11 +136,11 @@ class ActivityRepository {
             return user.id === id;
         });
         const index = dateOfActivity.findIndex(data => {
-            return data.date === date
+            return data.date === date;
         })
         const weekDate = dateOfActivity.slice((index - 6) , (index + 1))
           .map(data => {
-            return data.date
+            return data.date;
         })
         return weekDate;
     }
@@ -151,11 +150,11 @@ class ActivityRepository {
             return user.id === id;
         });
         const index = dateOfStairs.findIndex(data => {
-            return data.date === date
+            return data.date === date;
         })
         const weeklyStairs = dateOfStairs.slice((index - 6) , (index + 1))
           .map(data => {
-            return data.flightsOfStairs
+            return data.flightsOfStairs;
         })
         return weeklyStairs;
     }
@@ -165,11 +164,11 @@ class ActivityRepository {
             return user.id === id;
         });
         const index = dateOfSteps.findIndex(data => {
-            return data.date === date
+            return data.date === date;
         })
         const weeklySteps = dateOfSteps.slice((index - 6) , (index + 1))
           .map(data => {
-            return data.numSteps
+            return data.numSteps;
         })
         return weeklySteps;
     }
@@ -179,17 +178,14 @@ class ActivityRepository {
             return user.id === id;
         });
         const index = dateOfMinutesActive.findIndex(data => {
-            return data.date === date
+            return data.date === date;
         })
         const weeklyMinutesActive = dateOfMinutesActive.slice((index - 6) , (index + 1))
           .map(data => {
-            return data.minutesActive
+            return data.minutesActive;
         })
         return weeklyMinutesActive;
     }
-
 }
-
-
 
 export default ActivityRepository;
