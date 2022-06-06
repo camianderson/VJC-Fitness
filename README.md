@@ -28,28 +28,31 @@
 
 * Select the user you would like to display from the dropdown menu at the top right of the page!
 
-* Once a user is selected, they are welcomed to our page and can see their user info displayed below the dropdown menu.
+* Once a user is selected, they are welcomed to our page and can see their user info, recent activity data and hydration stats for 7 days.
 
-https://user-images.githubusercontent.com/98445902/169905275-119c2870-5421-4a1c-8084-00005dc67496.mov
-
+https://user-images.githubusercontent.com/98445902/172243113-8f0cc359-4e85-44a3-adda-b1aa825cb9dc.mov
 
 * While on this user, select a date from the calendar and the following information will be displayed:
     * The users water consumption for that date!
     * The users all-time daily average for how much water they consume per day!
     * A fancy-shmancy chart that displays the users water intake by day for the previous week! Wow!!
 
-https://user-images.githubusercontent.com/98445902/169905451-e6f2a7ac-2ad1-4b5a-a7b0-a1a75c9befab.mov
 
-* If you'd like to see another users **Hydration** info, just select another user from the dropdown menu! The new users info will be displayed under the dropdown and the previous users info will dissapear!
+* If you'd like to see another users info, just select another user from the dropdown menu! The new users info will be displayed under the dropdown and the previous users info will dissapear!
 
 * When you click on the **Sleep** image on the bottom left of the page, you'll be able to see the users **Sleep Habits**!
+
+https://user-images.githubusercontent.com/98445902/172243202-97385cb8-a0b6-413c-a948-40367a92eca8.mov
 
 * Select a date from the calendar, and the following info will be displayed:
     * How many hours that user slept, and also the quality of their sleep on that day!
     * The users all-time daily averages of their hours of sleep, as well as their quality of sleep!
     * Also, another wonderful chart that displays the users hours of sleep, and quality of sleep (side-by-side) for the past week! Nice!
 
-https://user-images.githubusercontent.com/98445902/169905906-72741416-3382-4d84-8a82-f077bb185c59.mov
+* When you click on the **Activity** image on the bottom left of the page, you'll be able to see the users **Activity Data**!
+
+https://user-images.githubusercontent.com/98445902/172243237-57309fab-9123-4f91-b751-e9882495f67e.mov
+
 
 * You can move back and forth from the **Water**, **Sleep** and **Activity** information by simply clicking on the images on the bottom-left of the page!
 
