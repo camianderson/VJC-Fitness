@@ -58,7 +58,7 @@ sleepButton.addEventListener('click', showSleepBox);
 activityButton.addEventListener('click', showActivityBox);
 
 
-waterInputSubmitButton.addEventListener('click', postData('http://localhost:3001/api/v1/hydration', (e) => {
+waterInputSubmitButton.addEventListener('submit', (e) => {
     e.preventDefault();
     var selection = document.getElementById('userDropDown');
     var userId = parseInt(selection.options[selection.selectedIndex].value);
@@ -69,8 +69,10 @@ waterInputSubmitButton.addEventListener('click', postData('http://localhost:3001
     var newWaterData = {
         userID: userId,
         date: dateFormat(dateObj, 'yyyy/mm/dd'),
-        numOunces: parseFloat(ounces)};
-}));
+        numOunces: parseFloat(ounces)
+    };
+    postData('http://localhost:3001/api/v1/hydration');
+});
 
 sleepInputSubmitButton.addEventListener('submit', (e) => {
   e.preventDefault();
