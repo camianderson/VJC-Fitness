@@ -1,6 +1,6 @@
 # Welcome to VJC Fitness!!!
 
-## An activity tracker that tracks and displays a users Hydration & Sleep habits!
+## An activity tracker that tracks and displays users Activity, Hydration & Sleep habits!
 
 ### Table of contents
 * [Setting Up](#setup)
